@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_event"
+        android:icon="@drawable/ic_menu_event"
+        android:checkable="true"
+        android:title="@string/event"/>
+
+    <item
+        android:id="@+id/menu_playground"
+        android:icon="@drawable/ic_menu_playground"
+        android:checkable="true"
+        android:checked="true"
+        android:title="@string/playground"/>
+
+    <item
+        android:id="@+id/menu_voucher"
+        android:icon="@drawable/ic_menu_voucher"
+        android:checkable="true"
+        android:title="@string/voucher"/>
+
+    <item
+        android:id="@+id/menu_info"
+        android:icon="@drawable/ic_menu_info"
+        android:checkable="true"
+        android:title="@string/info"/>
+
+</menu>

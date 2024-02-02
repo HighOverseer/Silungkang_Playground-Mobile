@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="18dp"
+    android:layout_marginStart="24dp"
+    android:layout_marginEnd="24dp"
+    tools:context=".presentation.feature.mainpage.fragment.voucher.VoucherFragment">
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv_reward_points"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="4dp"
+        app:cardBackgroundColor="@color/purple_50"
+        app:cardCornerRadius="50dp"
+        app:contentPaddingBottom="5dp"
+        app:contentPaddingLeft="6dp"
+        app:contentPaddingRight="6dp"
+
+        app:contentPaddingTop="5dp"
+        app:layout_constraintEnd_toEndOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aciv_point_icon"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/drawable_point_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextView.Purple100.36sp.IstokBold"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="-8dp"
+                android:text="@string/_17"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/actv_point_text"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toEndOf="@id/aciv_point_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_point_text"
+                style="@style/TextView.Grey350.10sp.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:letterSpacing="0.04"
+                android:text="@string/reward_npoints"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:lineHeight="12dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv_active_voucher"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        app:cardBackgroundColor="@color/purple_50"
+        app:cardCornerRadius="50dp"
+        app:contentPaddingBottom="5dp"
+        app:contentPaddingLeft="6dp"
+        app:contentPaddingRight="6dp"
+        app:contentPaddingTop="5dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/aciv_voucher_icon"
+                android:layout_width="33dp"
+                android:layout_height="33dp"
+                android:scaleType="fitCenter"
+                android:src="@drawable/drawable_voucher_circle"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                style="@style/TextView.Purple100.36sp.IstokBold"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="-8dp"
+                android:text="@string/_3"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/actv_voucher_text"
+                app:layout_constraintHorizontal_bias="0.6"
+                app:layout_constraintStart_toEndOf="@id/aciv_voucher_icon"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_voucher_text"
+                style="@style/TextView.Grey350.10sp.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="14dp"
+                android:letterSpacing="0.04"
+                android:text="@string/active_nvoucher"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:lineHeight="12dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/actv_point_exchange_info"
+        style="@style/TextView.Purple100.13sp.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/tukar_points"
+        app:layout_constraintStart_toStartOf="@id/mcv_reward_points"
+        app:layout_constraintTop_toBottomOf="@id/mcv_reward_points" />
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/mcv_point_exchange"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="4dp"
+        app:cardBackgroundColor="@color/purple_50"
+        app:cardCornerRadius="2dp"
+        app:layout_constraintEnd_toStartOf="@id/guideline3"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/actv_point_exchange_info"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_voucher_tag"
+                style="@style/TextView.White.8sp.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/voucher_tag_bg"
+                android:paddingVertical="1dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="8dp"
+                android:text="@string/voucher"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_voucher_value"
+                style="@style/TextView.Purple100.26sp.IstokBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/_100_000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/actv_voucher_tag" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_exchange_poin_info"
+                style="@style/TextView.Grey350.10sp.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp"
+
+                android:text="@string/tukarkan_15_points"
+                app:layout_constraintStart_toStartOf="@id/actv_voucher_value"
+                app:layout_constraintTop_toBottomOf="@id/actv_voucher_value" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acb_exchange_button1"
+                style="@style/Button.10sp.Medium"
+                android:layout_width="0dp"
+                android:layout_height="31dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/tukar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/actv_exchange_poin_info" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="12dp"
+        app:cardBackgroundColor="@color/purple_50"
+        app:cardCornerRadius="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/guideline3"
+        app:layout_constraintTop_toBottomOf="@id/actv_point_exchange_info"
+        app:strokeWidth="0dp">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="8dp">
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_voucher_tag2"
+                style="@style/TextView.White.8sp.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/voucher_tag_bg"
+                android:paddingVertical="1dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="8dp"
+                android:text="@string/voucher"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_voucher_value2"
+                style="@style/TextView.Purple100.26sp.IstokBold"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="5dp"
+                android:text="@string/_250_000"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/actv_voucher_tag2" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_exchange_poin_info2"
+                style="@style/TextView.Grey350.10sp.Medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="-8dp"
+                android:text="@string/tukarkan_30_points"
+                app:layout_constraintStart_toStartOf="@id/actv_voucher_value2"
+                app:layout_constraintTop_toBottomOf="@id/actv_voucher_value2" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acb_exchange_button2"
+                style="@style/Button.10sp.Medium"
+                android:layout_width="0dp"
+                android:layout_height="31dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/tukar"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/actv_exchange_poin_info2" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/actv_active_voucher_info"
+        style="@style/TextView.Purple100.13sp.Medium"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/inter_medium"
+        android:text="@string/voucher_aktif"
+        app:layout_constraintStart_toStartOf="@id/mcv_point_exchange"
+        app:layout_constraintTop_toBottomOf="@id/mcv_point_exchange" />
+    
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/TextView.Purple100.10sp.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/riwayat"
+        android:layout_marginEnd="2dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/actv_active_voucher_info"
+        app:layout_constraintBottom_toBottomOf="@id/actv_active_voucher_info"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_active_voucher"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="9dp"
+        android:paddingBottom="6dp"
+        android:clipToPadding="false"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/actv_active_voucher_info"
+        tools:listitem="@layout/item_voucher" />
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:visibility="gone"
+        android:layout_gravity="center_vertical|center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

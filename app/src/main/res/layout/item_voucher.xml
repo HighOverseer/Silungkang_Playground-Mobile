@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<id.rla.silungkangplayground.presentation.customview.VoucherView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:curve_scale="0.5"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/iv_voucher_type"
+            android:layout_marginVertical="10dp"
+            android:layout_marginStart="10dp"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/ic_donut"
+            android:scaleType="fitCenter"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            />
+
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextView.Purple100.26sp.IstokBold"
+            android:id="@+id/actv_nominal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:textAlignment="center"
+            android:text="@string/_100_000"
+            android:letterSpacing="-0.02"
+            android:layout_marginHorizontal="28dp"
+            app:layout_constraintEnd_toStartOf="@id/iv_icon_end"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/iv_voucher_type"/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextView.Grey350.8sp"
+            android:id="@+id/actv_expired_date_and_type"
+            android:text="@string/ends_30_11_2023_cafe"
+            android:layout_width="0dp"
+            android:textAlignment="center"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-10dp"
+            app:layout_constraintTop_toBottomOf="@id/actv_nominal"
+            app:layout_constraintStart_toStartOf="@id/actv_nominal"
+            app:layout_constraintEnd_toEndOf="@id/actv_nominal"
+            tools:ignore="SmallSp" />
+
+        <ImageView
+            android:id="@+id/iv_icon_end"
+            android:layout_width="116dp"
+            android:layout_height="0dp"
+            android:layout_gravity="end"
+            android:layout_marginEnd="-28dp"
+            android:alpha="0.5"
+            android:layout_marginBottom="-18dp"
+            android:src="@drawable/logo_bg_purple"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:scaleType="fitCenter"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</id.rla.silungkangplayground.presentation.customview.VoucherView>
