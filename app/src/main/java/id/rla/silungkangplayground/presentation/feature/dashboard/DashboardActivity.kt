@@ -5,9 +5,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.LinearLayoutManager
+import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.ActivityDashboardBinding
-import id.rla.silungkangplayground.domain.helper.Dummy.getListCreativeCorners
 import id.rla.silungkangplayground.domain.helper.Dummy.getListEventSlider
+import id.rla.silungkangplayground.domain.model.CreativeCorner
 import id.rla.silungkangplayground.presentation.feature.dashboard.adapter.CreativeCornerAdapter
 import id.rla.silungkangplayground.presentation.feature.dashboard.adapter.DashboardEventSliderAdapter
 import id.rla.silungkangplayground.presentation.feature.login.LoginActivity
@@ -74,6 +75,22 @@ class DashboardActivity : AppCompatActivity() {
 
 
         }
+    }
+
+
+    private fun getListCreativeCorners():List<CreativeCorner>{
+        return listOf(
+            CreativeCorner(
+                getString(R.string.tahfiz_untuk_anak),
+                R.drawable.ic_tahfiz
+            ), CreativeCorner(
+                getString(R.string.magenetik_drawing_board),
+                R.drawable.ic_canvas
+            ), CreativeCorner(
+                title = getString(R.string.puzzle_tetris),
+                icon = R.drawable.ic_puzzle
+            )
+        )
     }
 
     companion object{

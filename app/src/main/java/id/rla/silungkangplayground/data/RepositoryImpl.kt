@@ -2,12 +2,14 @@ package id.rla.silungkangplayground.data
 
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.data.remote.network.ApiService
-import id.rla.silungkangplayground.domain.core.DynamicString
-import id.rla.silungkangplayground.domain.core.Resource
-import id.rla.silungkangplayground.domain.core.StaticString
-import id.rla.silungkangplayground.domain.core.StringRes
+import id.rla.silungkangplayground.domain.common.DynamicString
+import id.rla.silungkangplayground.domain.common.Resource
+import id.rla.silungkangplayground.domain.common.StaticString
+import id.rla.silungkangplayground.domain.common.StringRes
 import id.rla.silungkangplayground.domain.data.Repository
 import id.rla.silungkangplayground.domain.data.UserPreference
+import id.rla.silungkangplayground.domain.helper.Mapper
+import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Call
@@ -20,7 +22,7 @@ class RepositoryImpl(
 ):Repository {
 
     private suspend fun <T, S> fetchData(
-        fetch: () -> Call<T>,
+        fetch: suspend () -> Call<T>,
         execute: T.() -> Unit = { },
         executeSuspend: suspend T.() -> Unit = { },
         mapData: T.() -> S,
@@ -63,13 +65,29 @@ class RepositoryImpl(
                 if (token.isNullOrBlank()) throw Exception("Token not found..")
 
                 userPreference.saveToken(token)
+                userPreference.saveMemberId(memberId)
             },
             mapData = {
                 DynamicString(message.toString())
             }
         )
     }
-    
+
+    override suspend fun getDetailMemberVoucher(): Resource<MemberVoucherInfo>
+     = withContext(Dispatchers.Default){
+         fetchData(
+             fetch = {
+                 val memberId = userPreference.getMemberId()
+                 apiService.getMemberVoucherInfo(memberId)
+             },
+             mapData = {
+                 Mapper.mapMemberVoucherInfoDtoToDomain(
+                     this
+                 )
+             }
+         )
+    }
+
     companion object{
         @Volatile
         private var INSTANCE:RepositoryImpl?=null

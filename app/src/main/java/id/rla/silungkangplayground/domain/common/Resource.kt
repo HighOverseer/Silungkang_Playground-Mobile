@@ -1,4 +1,4 @@
-package id.rla.silungkangplayground.domain.core
+package id.rla.silungkangplayground.domain.common
 
 sealed class Resource<out T> private constructor() {
     data class Success<T>(val data: T) : Resource<T>()

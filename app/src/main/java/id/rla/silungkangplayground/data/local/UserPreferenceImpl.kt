@@ -26,10 +26,34 @@ class UserPreferenceImpl private constructor(
         }
     }
 
+    override suspend fun resetToken() {
+        dataStore.edit { preferences ->
+            preferences[TOKEN_KEY] = ""
+        }
+    }
+
+    override suspend fun getMemberId(): String {
+        val preferences = dataStore.data.first()
+        return preferences[MEMBER_ID_KEY] ?: ""
+    }
+
+    override suspend fun saveMemberId(memberId: String) {
+        dataStore.edit { preferences ->
+            preferences[MEMBER_ID_KEY] = memberId
+        }
+    }
+
+    override suspend fun resetMemberId() {
+        dataStore.edit { preferences ->
+            preferences[MEMBER_ID_KEY] = ""
+        }
+    }
+
     companion object{
         const val DATA_STORE_NAME = "user"
 
         private val TOKEN_KEY = stringPreferencesKey("token")
+        private val MEMBER_ID_KEY = stringPreferencesKey("memberId")
 
         @Volatile
         private var INSTANCE:UserPreferenceImpl?=null

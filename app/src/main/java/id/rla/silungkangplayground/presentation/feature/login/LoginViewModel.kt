@@ -4,10 +4,10 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import id.rla.silungkangplayground.domain.core.DynamicString
-import id.rla.silungkangplayground.domain.core.Resource
-import id.rla.silungkangplayground.domain.core.SingleEvent
-import id.rla.silungkangplayground.domain.core.StringRes
+import id.rla.silungkangplayground.domain.common.DynamicString
+import id.rla.silungkangplayground.domain.common.Resource
+import id.rla.silungkangplayground.domain.common.SingleEvent
+import id.rla.silungkangplayground.domain.common.StringRes
 import id.rla.silungkangplayground.domain.data.Repository
 import kotlinx.coroutines.launch
 

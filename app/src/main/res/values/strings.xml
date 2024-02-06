@@ -49,7 +49,22 @@
     <string name="wahana">Wahana</string>
     <string name="review">Review</string>
     <string name="tanggal_24_01_2024">Tanggal\t\t: %1$s</string>
-    <string name="jam_event">Jam\t\t\t\t\t: %1$s</string>
+    <string name="jam_event">Jam\t\t\t\t\t: %1$s WIB</string>
     <string name="daftar">Daftar</string>
     <string name="playground_event">Playground Event</string>
+    <string name="tahfiz_untuk_anak">Tahfiz untuk\nAnak</string>
+    <string name="magenetik_drawing_board">Magenetik\nDrawing Board</string>
+    <string name="puzzle_tetris">Puzzle\nTetris</string>
+    <string name="_0">0</string>
+    <string name="no">No.</string>
+    <string name="keterangan">Keterangan</string>
+    <string name="tanggal">Tanggal</string>
+    <string name="tidak_ada_voucher_yang_aktif">Tidak ada voucher yang aktif..</string>
+    <string name="operational_hours">Operational Hours</string>
+    <string name="operational_hours_time">%1$s - %2$s WIB</string>
+    <string name="harga_ticket">Harga Ticket</string>
+    <string name="harga_tiket_sudah_termasuk_1_orang_pendamping">Harga tiket sudah termasuk 1 orang pendamping</string>
+    <string name="senin_kamis">%1$s - %2$s</string>
+    <string name="ticket_day_price_format">: Rp. %1$s,-</string>
+    <string name="hari_libur">Hari Libur</string>
 </resources>

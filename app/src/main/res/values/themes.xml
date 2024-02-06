@@ -57,6 +57,10 @@
         <item name="android:lineHeight" tools:targetApi="p">16sp</item>
     </style>
 
+    <style name="TextView.Grey350.12sp.Light">
+        <item name="android:fontFamily">@font/inter_light</item>
+    </style>
+
     <style name="TextView.Grey350.8sp">
         <item name="android:textSize">8sp</item>
         <item name="android:lineHeight" tools:targetApi="p">16sp</item>
@@ -210,11 +214,30 @@
         <item name="android:textSize">10sp</item>
     </style>
 
+    <style name="TextView.Purple100.9sp">
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="TextView.Purple100.8sp">
+        <item name="android:textSize">8sp</item>
+    </style>
+
     <style name="TextView.Purple100.10sp.Regular">
         <item name="android:fontFamily">@font/inter_regular</item>
     </style>
 
     <style name="TextView.Purple100.10sp.Light">
+        <item name="android:fontFamily">@font/inter_light</item>
+    </style>
+
+    <style name="TextView.Purple100.11sp.Light">
+        <item name="android:fontFamily">@font/inter_light</item>
+    </style>
+
+    <style name="TextView.Purple100.9sp.Light">
+        <item name="android:fontFamily">@font/inter_light</item>
+    </style>
+
+    <style name="TextView.Purple100.8sp.Light">
         <item name="android:fontFamily">@font/inter_light</item>
     </style>
 
@@ -232,6 +255,10 @@
 
     <style name="TextView.Purple100.13sp">
         <item name="android:textSize">13sp</item>
+    </style>
+
+    <style name="TextView.Purple100.22sp">
+        <item name="android:textSize">22sp</item>
     </style>
 
     <style name="TextView.Purple100.15sp">
@@ -259,6 +286,10 @@
         <item name="android:fontFamily">@font/inter_regular</item>
     </style>
 
+    <style name="TextView.Purple100.12sp.Light">
+        <item name="android:fontFamily">@font/inter_light</item>
+    </style>
+
     <style name="TextView.Purple100.12sp.Medium">
         <item name="android:fontFamily">@font/inter_medium</item>
     </style>
@@ -269,6 +300,14 @@
 
     <style name="TextView.Purple100.12sp.SemiBold">
         <item name="android:fontFamily">@font/inter_semi_bold</item>
+    </style>
+
+    <style name="TextView.Purple100.22sp.SemiBold">
+        <item name="android:fontFamily">@font/inter_semi_bold</item>
+    </style>
+
+    <style name="TextView.Purple100.22sp.Bold">
+        <item name="android:fontFamily">@font/inter_bold</item>
     </style>
 
     <style name="TextView.Purple100.12sp.ExtraBold">
@@ -304,6 +343,14 @@
     <style name="TextView.Black.14sp">
         <item name="android:textSize">14sp</item>
     </style>
+    <style name="TextView.Black.12sp">
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="TextView.Black.11sp">
+        <item name="android:textSize">12sp</item>
+    </style>
+
     <style name="TextView.Black.10sp">
         <item name="android:textSize">10sp</item>
     </style>
@@ -317,6 +364,22 @@
         <item name="android:fontFamily">@font/inter_semi_bold</item>
     </style>
     <style name="TextView.Black.10sp.Regular">
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
+    <style name="TextView.Black.12sp.Light">
+        <item name="android:fontFamily">@font/inter_light</item>
+    </style>
+
+    <style name="TextView.Black.11sp.Medium">
+        <item name="android:fontFamily">@font/inter_medium</item>
+    </style>
+
+    <style name="TextView.Black.11sp.Regular">
+        <item name="android:fontFamily">@font/inter_regular</item>
+    </style>
+
+    <style name="TextView.Black.12sp.Regular">
         <item name="android:fontFamily">@font/inter_regular</item>
     </style>
 

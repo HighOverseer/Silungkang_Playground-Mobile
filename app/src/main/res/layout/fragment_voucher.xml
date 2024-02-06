@@ -41,11 +41,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_point_count"
                 style="@style/TextView.Purple100.36sp.IstokBold"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginTop="-8dp"
-                android:text="@string/_17"
+                android:text="@string/_0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/actv_point_text"
                 app:layout_constraintHorizontal_bias="0.6"
@@ -101,11 +102,12 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/actv_active_voucher_count"
                 style="@style/TextView.Purple100.36sp.IstokBold"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
                 android:layout_marginTop="-8dp"
-                android:text="@string/_3"
+                android:text="@string/_0"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toStartOf="@id/actv_voucher_text"
                 app:layout_constraintHorizontal_bias="0.6"
@@ -293,6 +295,7 @@
         app:layout_constraintTop_toBottomOf="@id/mcv_point_exchange" />
     
     <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/actv_history"
         style="@style/TextView.Purple100.10sp.Light"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -302,6 +305,19 @@
         app:layout_constraintTop_toTopOf="@id/actv_active_voucher_info"
         app:layout_constraintBottom_toBottomOf="@id/actv_active_voucher_info"/>
 
+
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/actv_empty_info"
+        style="@style/TextView.Grey350.12sp.Light"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:text="@string/tidak_ada_voucher_yang_aktif"
+        app:layout_constraintTop_toTopOf="@id/rv_active_voucher"
+        app:layout_constraintBottom_toBottomOf="@id/rv_active_voucher"
+        app:layout_constraintStart_toStartOf="@id/rv_active_voucher"
+        app:layout_constraintEnd_toEndOf="@id/rv_active_voucher"/>
 
 
     <androidx.recyclerview.widget.RecyclerView
@@ -315,6 +331,8 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/actv_active_voucher_info"
         tools:listitem="@layout/item_voucher" />
+
+
 
     <ProgressBar
         android:id="@+id/progress_bar"

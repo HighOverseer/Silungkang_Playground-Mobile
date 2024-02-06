@@ -9,7 +9,11 @@
         android:id="@+id/menu_voucher"
         android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.VoucherFragment"
         android:label="fragment_voucher"
-        tools:layout="@layout/fragment_voucher" />
+        tools:layout="@layout/fragment_voucher" >
+        <action
+            android:id="@+id/action_menu_voucher_to_voucherHistoryFragment"
+            app:destination="@id/voucherHistoryFragment" />
+    </fragment>
     <fragment
         android:id="@+id/menu_event"
         android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.event.EventFragment"
@@ -25,4 +29,9 @@
         android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.info.InfoFragment"
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
+    <fragment
+        android:id="@+id/voucherHistoryFragment"
+        android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.VoucherHistoryFragment"
+        android:label="fragment_voucher_history"
+        tools:layout="@layout/fragment_voucher_history" />
 </navigation>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="12dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/header_table_item_voucher_history_bg">
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/actv_info_no"
+        style="@style/TextView.White.12sp.Medium"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textAlignment="gravity"
+        android:gravity="center"
+        android:letterSpacing="0.01"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="12dp"
+        android:text="@string/no"/>
+
+    <View
+        android:layout_width="1.5dp"
+        android:layout_height="0dp"
+        android:background="@color/grey_750"
+        app:layout_constraintBottom_toBottomOf="@id/actv_info_no"
+        app:layout_constraintEnd_toEndOf="@id/guideline4"
+        app:layout_constraintStart_toStartOf="@id/guideline4"
+        app:layout_constraintTop_toTopOf="@id/actv_info_no" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/actv_info_information"
+        style="@style/TextView.White.12sp.Medium"
+        android:layout_width="0dp"
+        android:textAlignment="center"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="12dp"
+        android:letterSpacing="0.01"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/guideline5"
+        app:layout_constraintStart_toEndOf="@id/guideline4"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/keterangan"/>
+
+    <View
+        android:layout_width="1.5dp"
+        android:layout_height="0dp"
+        android:background="@color/grey_750"
+        app:layout_constraintBottom_toBottomOf="@id/actv_info_information"
+        app:layout_constraintEnd_toEndOf="@id/guideline5"
+        app:layout_constraintStart_toStartOf="@id/guideline5"
+        app:layout_constraintTop_toTopOf="@id/actv_info_information" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        style="@style/TextView.White.12sp.Medium"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:gravity="center"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="12dp"
+        android:letterSpacing="0.01"
+        android:textAlignment="gravity"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/guideline5"
+        app:layout_constraintTop_toTopOf="parent"
+        android:text="@string/tanggal"/>
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.105" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent=".725" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

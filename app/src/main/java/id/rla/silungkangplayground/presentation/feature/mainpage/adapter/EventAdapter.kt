@@ -6,7 +6,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import id.rla.silungkangplayground.R
-import id.rla.silungkangplayground.databinding.HeaderItemEventBinding
+import id.rla.silungkangplayground.databinding.HeaderPageItemBinding
 import id.rla.silungkangplayground.databinding.ItemEventBinding
 import id.rla.silungkangplayground.domain.model.Event
 import id.rla.silungkangplayground.presentation.util.loadImage
@@ -27,7 +27,7 @@ class EventAdapter:ListAdapter<Event, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
         }
     }
 
-    class HeaderViewHolder(val binding:HeaderItemEventBinding):RecyclerView.ViewHolder(binding.root)
+    class HeaderViewHolder(val binding:HeaderPageItemBinding):RecyclerView.ViewHolder(binding.root)
 
 
 
@@ -38,7 +38,7 @@ class EventAdapter:ListAdapter<Event, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
         return when (viewType) {
             HEADER_TYPE -> {
-               HeaderItemEventBinding.inflate(
+               HeaderPageItemBinding.inflate(
                     layoutInflater,
                     parent,
                     false

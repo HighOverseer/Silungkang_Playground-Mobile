@@ -1,4 +1,4 @@
-package id.rla.silungkangplayground.domain.core
+package id.rla.silungkangplayground.domain.common
 
 class SingleEvent<out T>(private val content: T) {
 

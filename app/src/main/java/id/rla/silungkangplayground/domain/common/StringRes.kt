@@ -1,4 +1,4 @@
-package id.rla.silungkangplayground.domain.core
+package id.rla.silungkangplayground.domain.common
 
 import android.content.Context
 

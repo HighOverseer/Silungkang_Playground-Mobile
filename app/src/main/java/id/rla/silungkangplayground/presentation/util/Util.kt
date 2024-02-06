@@ -12,8 +12,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.bumptech.glide.Glide
-import id.rla.silungkangplayground.domain.core.StringRes
-import id.rla.silungkangplayground.presentation.viewmodelfactory.ViewModelFactory
+import id.rla.silungkangplayground.domain.common.StringRes
+import id.rla.silungkangplayground.presentation.factory.ViewModelFactory
 
 
 inline fun <reified T:ViewModel>ViewModelStoreOwner.obtainViewModel(applicationContext: Context):T{
