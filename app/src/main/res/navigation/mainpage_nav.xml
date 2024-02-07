@@ -11,8 +11,8 @@
         android:label="fragment_voucher"
         tools:layout="@layout/fragment_voucher" >
         <action
-            android:id="@+id/action_menu_voucher_to_voucherHistoryFragment"
-            app:destination="@id/voucherHistoryFragment" />
+            android:id="@+id/action_menu_voucher_to_memberHistoryFragment"
+            app:destination="@id/memberHistoryFragment" />
     </fragment>
     <fragment
         android:id="@+id/menu_event"
@@ -30,8 +30,8 @@
         android:label="fragment_info"
         tools:layout="@layout/fragment_info" />
     <fragment
-        android:id="@+id/voucherHistoryFragment"
-        android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.VoucherHistoryFragment"
+        android:id="@+id/memberHistoryFragment"
+        android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.MemberHistoryFragment"
         android:label="fragment_voucher_history"
-        tools:layout="@layout/fragment_voucher_history" />
+        tools:layout="@layout/fragment_member_history" />
 </navigation>

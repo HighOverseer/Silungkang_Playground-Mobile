@@ -9,9 +9,9 @@ import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.HeaderPageItemBinding
 import id.rla.silungkangplayground.databinding.HeaderTableItemVoucherHistoryBinding
 import id.rla.silungkangplayground.databinding.ItemVoucherHistoryBinding
-import id.rla.silungkangplayground.domain.model.VoucherHistoryItem
+import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 
-class VoucherHistoryAdapter :ListAdapter<VoucherHistoryItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+class MemberHistoryAdapter :ListAdapter<MemberHistoryItem, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
 
     class HeaderPageViewHolder(val binding:HeaderPageItemBinding):RecyclerView.ViewHolder(binding.root){
@@ -25,7 +25,7 @@ class VoucherHistoryAdapter :ListAdapter<VoucherHistoryItem, RecyclerView.ViewHo
     class HeaderTableViewHolder(val binding:HeaderTableItemVoucherHistoryBinding):RecyclerView.ViewHolder(binding.root)
 
     class TableItemViewHolder(val binding:ItemVoucherHistoryBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(item:VoucherHistoryItem){
+        fun bind(item:MemberHistoryItem){
             binding.apply {
                 val number = adapterPosition - 1
 
@@ -75,7 +75,7 @@ class VoucherHistoryAdapter :ListAdapter<VoucherHistoryItem, RecyclerView.ViewHo
         (holder as TableItemViewHolder).bind(currItem)
     }
 
-    override fun getItem(position: Int): VoucherHistoryItem {
+    override fun getItem(position: Int): MemberHistoryItem {
         return super.getItem(getFixItemPosition(position))
     }
 
@@ -92,6 +92,9 @@ class VoucherHistoryAdapter :ListAdapter<VoucherHistoryItem, RecyclerView.ViewHo
     }
 
     override fun getItemCount(): Int {
+        //if no item, only show page header
+        if (currentList.size == 0) return 1
+
         return currentList.size + ADDITIONAL_VIEW_COUNT
     }
 
@@ -103,17 +106,17 @@ class VoucherHistoryAdapter :ListAdapter<VoucherHistoryItem, RecyclerView.ViewHo
         private const val HEADER_TABLE_TYPE = 1
         private const val ITEM_TABLE_TYPE = 3
 
-        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<VoucherHistoryItem>(){
+        private val DIFF_CALLBACK = object : DiffUtil.ItemCallback<MemberHistoryItem>(){
             override fun areItemsTheSame(
-                oldItem: VoucherHistoryItem,
-                newItem: VoucherHistoryItem
+                oldItem: MemberHistoryItem,
+                newItem: MemberHistoryItem
             ): Boolean {
                 return oldItem.id == newItem.id
             }
 
             override fun areContentsTheSame(
-                oldItem: VoucherHistoryItem,
-                newItem: VoucherHistoryItem
+                oldItem: MemberHistoryItem,
+                newItem: MemberHistoryItem
             ): Boolean {
                 return oldItem == newItem
             }

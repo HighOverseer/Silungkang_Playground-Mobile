@@ -12,11 +12,12 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.FragmentVoucherBinding
-import id.rla.silungkangplayground.domain.helper.Dummy
 import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.ActiveVoucherAdapter
 import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.ActiveVoucherItemDecoration
 import id.rla.silungkangplayground.presentation.customview.BindingFragment
 import id.rla.silungkangplayground.presentation.feature.feedback.FeedbackDialogFragment
+import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.util.OnProcessingVoucherExchangeListener
+import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.VoucherViewModel
 import id.rla.silungkangplayground.presentation.util.obtainViewModel
 import id.rla.silungkangplayground.presentation.util.showToast
 import kotlinx.coroutines.flow.collectLatest
@@ -99,7 +100,7 @@ class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
 
             actvHistory.setOnClickListener {
                 view?.findNavController()?.navigate(
-                    R.id.action_menu_voucher_to_voucherHistoryFragment
+                    R.id.action_menu_voucher_to_memberHistoryFragment
                 )
             }
 

@@ -1,20 +1,16 @@
-package id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher
+package id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel
 
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
-import androidx.lifecycle.viewModelScope
 import id.rla.silungkangplayground.domain.common.DynamicString
 import id.rla.silungkangplayground.domain.common.Resource
 import id.rla.silungkangplayground.domain.common.SingleEvent
 import id.rla.silungkangplayground.domain.data.Repository
+import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.uistate.VoucherUiState
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

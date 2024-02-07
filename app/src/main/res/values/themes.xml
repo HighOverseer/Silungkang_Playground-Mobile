@@ -483,8 +483,6 @@
     </style>
 
 
-
-
     <style name="BottomNavigationItemTextActive">
         <item name="android:fontFamily">@font/inter_regular</item>
         <item name="android:textSize">12sp</item>
@@ -495,6 +493,55 @@
         <item name="android:fontFamily">@font/inter_regular</item>
         <item name="android:textSize">12sp</item>
         <item name="android:textColor">@color/grey_250</item>
+    </style>
+
+
+    <!--Member History Table Style-->
+
+    <style name="MemberHistoryTableColumnHeaderNo" parent="TextView.White.12sp.Medium">
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:ems">3</item>
+        <item name="android:minEms">3</item>
+    </style>
+
+    <style name="MemberHistoryTableColumnHeaderInformation" parent="TextView.White.12sp.Medium">
+        <item name="android:textAlignment">center</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+   <style name="MemberHistoryTableColumnHeaderDate" parent="TextView.White.12sp.Medium">
+       <item name="android:gravity">center</item>
+
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:letterSpacing">0.01</item>
+    </style>
+
+
+    <style name="MemberHistoryTableColumnNo" parent="TextView.Black.11sp.Regular">
+        <item name="android:gravity">center</item>
+        <item name="android:padding">8dp</item>
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:ems">3</item>
+        <item name="android:minEms">3</item>
+    </style>
+
+    <style name="MemberHistoryTableSeparator">"
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:background">@color/grey_750</item>
+    </style>
+
+    <style name="MemberHistoryTableColumnInformation" parent="TextView.Black.11sp.Regular">
+        <item name="android:letterSpacing">0.01</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textAlignment">gravity</item>
+        <item name="android:inputType">textMultiLine</item>
+        <item name="android:padding">8dp</item>
+    </style>
+
+    <style name="MemberHistoryTableColumnDate" parent="MemberHistoryTableColumnInformation">
+        <item name="android:gravity">center</item>
     </style>
 
 </resources>

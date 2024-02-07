@@ -1,4 +1,4 @@
-package id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher
+package id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.uistate
 
 import id.rla.silungkangplayground.domain.common.SingleEvent
 import id.rla.silungkangplayground.domain.common.StringRes

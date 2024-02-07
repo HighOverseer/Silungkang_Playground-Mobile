@@ -9,6 +9,7 @@ import id.rla.silungkangplayground.domain.common.StringRes
 import id.rla.silungkangplayground.domain.data.Repository
 import id.rla.silungkangplayground.domain.data.UserPreference
 import id.rla.silungkangplayground.domain.helper.Mapper
+import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -86,6 +87,20 @@ class RepositoryImpl(
                  )
              }
          )
+    }
+
+
+    override suspend fun getMemberHistory(): Resource<List<MemberHistoryItem>>
+    = withContext(Dispatchers.Default){
+        fetchData(
+            fetch = {
+                val memberId = userPreference.getMemberId()
+                apiService.getMemberHistory(memberId)
+            },
+            mapData = {
+                Mapper.mapMemberHistoryDtoToDomain(this)
+            }
+        )
     }
 
     companion object{

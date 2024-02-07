@@ -1,6 +1,8 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+    id ("kotlin-kapt")
+    id ("dagger.hilt.android.plugin")
 }
 
 android {
@@ -13,7 +15,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "BASE_URL", "\"http://45.45.45.187/playground/\"")
+        buildConfigField("String", "BASE_URL", "\"http://45.45.45.222/playground/\"")
 
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -65,4 +67,7 @@ dependencies {
 
     implementation("com.github.bumptech.glide:glide:4.14.2")
     annotationProcessor("com.github.bumptech.glide:compiler:4.14.2")
+
+    implementation("com.google.dagger:hilt-android:2.44")
+    kapt("com.google.dagger:hilt-android-compiler:2.44")
 }

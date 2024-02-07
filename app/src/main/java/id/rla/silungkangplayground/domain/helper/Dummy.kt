@@ -1,14 +1,12 @@
 package id.rla.silungkangplayground.domain.helper
 
-import id.rla.silungkangplayground.R
-import id.rla.silungkangplayground.domain.model.CreativeCorner
 import id.rla.silungkangplayground.domain.model.Event
 import id.rla.silungkangplayground.domain.model.OperationalHours
 import id.rla.silungkangplayground.domain.model.PlaygroundModel
 import id.rla.silungkangplayground.domain.model.TicketDayPrice
 import id.rla.silungkangplayground.domain.model.TicketInfo
 import id.rla.silungkangplayground.domain.model.Voucher
-import id.rla.silungkangplayground.domain.model.VoucherHistoryItem
+import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.VoucherType
 
 object Dummy {
@@ -32,19 +30,19 @@ object Dummy {
         }
     }
 
-    fun getVoucherHistoryItem():List<VoucherHistoryItem>{
+    fun getVoucherHistoryItem():List<MemberHistoryItem>{
         return listOf(
-            VoucherHistoryItem(
+            MemberHistoryItem(
                 1,
                 "Penukaran voucher 100.000",
                 "15/11/2023"
             ),
-            VoucherHistoryItem(
+            MemberHistoryItem(
                 2,
                 "Penambahan point dari scan tiket masuk",
                 "02/11/2023"
             ),
-            VoucherHistoryItem(
+            MemberHistoryItem(
                 3,
                 "Penukaran voucher 250.000",
                 "29/10/2023"

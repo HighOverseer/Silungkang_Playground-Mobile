@@ -67,4 +67,5 @@
     <string name="senin_kamis">%1$s - %2$s</string>
     <string name="ticket_day_price_format">: Rp. %1$s,-</string>
     <string name="hari_libur">Hari Libur</string>
+    <string name="riwayat_kosong">Riwayat kosong..</string>
 </resources>

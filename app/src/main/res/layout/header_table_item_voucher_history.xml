@@ -8,14 +8,10 @@
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/actv_info_no"
-        style="@style/TextView.White.12sp.Medium"
-        android:layout_width="0dp"
+        style="@style/MemberHistoryTableColumnHeaderNo"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:textAlignment="gravity"
-        android:gravity="center"
-        android:letterSpacing="0.01"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/guideline4"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:paddingHorizontal="8dp"
@@ -23,26 +19,24 @@
         android:text="@string/no"/>
 
     <View
+        android:id="@+id/separator"
         android:layout_width="1.5dp"
         android:layout_height="0dp"
         android:background="@color/grey_750"
         app:layout_constraintBottom_toBottomOf="@id/actv_info_no"
-        app:layout_constraintEnd_toEndOf="@id/guideline4"
-        app:layout_constraintStart_toStartOf="@id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/actv_info_no"
         app:layout_constraintTop_toTopOf="@id/actv_info_no" />
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/actv_info_information"
-        style="@style/TextView.White.12sp.Medium"
+        style="@style/MemberHistoryTableColumnHeaderInformation"
         android:layout_width="0dp"
-        android:textAlignment="center"
         android:paddingHorizontal="8dp"
         android:paddingVertical="12dp"
-        android:letterSpacing="0.01"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline5"
-        app:layout_constraintStart_toEndOf="@id/guideline4"
+        app:layout_constraintStart_toEndOf="@id/separator"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/keterangan"/>
 
@@ -56,26 +50,23 @@
         app:layout_constraintTop_toTopOf="@id/actv_info_information" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        style="@style/TextView.White.12sp.Medium"
+        style="@style/MemberHistoryTableColumnHeaderDate"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:gravity="center"
         android:paddingHorizontal="8dp"
         android:paddingVertical="12dp"
-        android:letterSpacing="0.01"
-        android:textAlignment="gravity"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline5"
         app:layout_constraintTop_toTopOf="parent"
         android:text="@string/tanggal"/>
-
+<!--
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintGuide_percent="0.105" />
+        app:layout_constraintGuide_percent="0.105" />-->
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline5"

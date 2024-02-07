@@ -8,7 +8,8 @@ import id.rla.silungkangplayground.di.Injection
 import id.rla.silungkangplayground.data.local.dataStore
 import id.rla.silungkangplayground.domain.data.Repository
 import id.rla.silungkangplayground.presentation.feature.login.LoginViewModel
-import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.VoucherViewModel
+import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.MemberHistoryViewModel
+import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.VoucherViewModel
 
 class ViewModelFactory private constructor(
     private val repository: Repository
@@ -23,6 +24,9 @@ class ViewModelFactory private constructor(
                 }
                 isAssignableFrom(VoucherViewModel::class.java)->{
                     VoucherViewModel(repository) as T
+                }
+                isAssignableFrom(MemberHistoryViewModel::class.java) -> {
+                    MemberHistoryViewModel(repository) as T
                 }
                 else -> return super.create(modelClass, extras)
             }

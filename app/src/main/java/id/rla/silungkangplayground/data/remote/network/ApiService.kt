@@ -1,5 +1,6 @@
 package id.rla.silungkangplayground.data.remote.network
 
+import id.rla.silungkangplayground.data.remote.dto.GetMemberHistoryResponse
 import id.rla.silungkangplayground.data.remote.dto.LoginResponse
 import id.rla.silungkangplayground.data.remote.dto.MemberVoucherInfoResponse
 import retrofit2.Call
@@ -24,5 +25,13 @@ interface ApiService {
         @Field("memberId")
         memberId:String
     ):Call<MemberVoucherInfoResponse>
+
+    @FormUrlEncoded
+    @POST("spg/memberHistory/get")
+    fun getMemberHistory(
+        @Field("member_id")
+        memberId: String
+    ):Call<GetMemberHistoryResponse>
+
 
 }
