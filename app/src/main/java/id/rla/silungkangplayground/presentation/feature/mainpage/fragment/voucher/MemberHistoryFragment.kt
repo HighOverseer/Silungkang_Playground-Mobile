@@ -5,24 +5,27 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.recyclerview.widget.LinearLayoutManager
+import dagger.hilt.android.AndroidEntryPoint
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.util.FragmentActivityCallback
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.FragmentMemberHistoryBinding
 import id.rla.silungkangplayground.presentation.customview.BindingFragment
 import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.MemberHistoryAdapter
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.MemberHistoryViewModel
-import id.rla.silungkangplayground.presentation.util.obtainViewModel
 import id.rla.silungkangplayground.presentation.util.showToast
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 
+@AndroidEntryPoint
 class MemberHistoryFragment : BindingFragment<FragmentMemberHistoryBinding>(){
 
-    private lateinit var viewModel:MemberHistoryViewModel
+    private val viewModel:MemberHistoryViewModel by viewModels()
     private val adapter = MemberHistoryAdapter()
 
     override fun onCreateBinding(
@@ -39,7 +42,6 @@ class MemberHistoryFragment : BindingFragment<FragmentMemberHistoryBinding>(){
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = obtainViewModel(requireActivity().applicationContext)
         initNavigation()
         initObserver()
         viewModel.fetchDataPeriodically(viewLifecycleOwner)

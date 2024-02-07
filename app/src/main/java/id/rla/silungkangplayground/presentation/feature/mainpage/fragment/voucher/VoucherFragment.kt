@@ -6,10 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
+import dagger.hilt.android.AndroidEntryPoint
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.FragmentVoucherBinding
 import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.ActiveVoucherAdapter
@@ -18,17 +20,17 @@ import id.rla.silungkangplayground.presentation.customview.BindingFragment
 import id.rla.silungkangplayground.presentation.feature.feedback.FeedbackDialogFragment
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.util.OnProcessingVoucherExchangeListener
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.VoucherViewModel
-import id.rla.silungkangplayground.presentation.util.obtainViewModel
 import id.rla.silungkangplayground.presentation.util.showToast
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
+@AndroidEntryPoint
 class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
     OnProcessingVoucherExchangeListener {
 
-    private lateinit var viewModel: VoucherViewModel
+    private val viewModel: VoucherViewModel by viewModels()
 
     override fun onCreateBinding(
         layoutInflater: LayoutInflater,
@@ -43,7 +45,6 @@ class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel = obtainViewModel(requireActivity().applicationContext)
         initRvAdapter()
         initButtons()
         initObserver()
@@ -65,6 +66,7 @@ class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
 
                                 val adapter = ActiveVoucherAdapter(listVoucher)
                                 rvActiveVoucher.adapter = adapter
+
 
                                 actvActiveVoucherCount.text = activeVoucherCount.toString()
                                 actvPointCount.text = point

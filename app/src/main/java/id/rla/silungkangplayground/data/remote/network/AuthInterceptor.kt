@@ -4,8 +4,9 @@ import id.rla.silungkangplayground.domain.data.UserPreference
 import kotlinx.coroutines.runBlocking
 import okhttp3.Interceptor
 import okhttp3.Response
+import javax.inject.Inject
 
-class AuthInterceptor(private val userPreference: UserPreference):Interceptor {
+class AuthInterceptor @Inject constructor(private val userPreference: UserPreference):Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val original = chain.request()
         var token:String

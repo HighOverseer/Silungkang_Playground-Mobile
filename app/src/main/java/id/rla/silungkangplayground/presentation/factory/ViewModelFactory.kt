@@ -11,6 +11,7 @@ import id.rla.silungkangplayground.presentation.feature.login.LoginViewModel
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.MemberHistoryViewModel
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.VoucherViewModel
 
+/*
 class ViewModelFactory private constructor(
     private val repository: Repository
 ):ViewModelProvider.NewInstanceFactory() {
@@ -48,4 +49,4 @@ class ViewModelFactory private constructor(
             }.also { INSTANCE = it }
         }
     }
-}
+}*/

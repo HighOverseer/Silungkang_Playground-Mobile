@@ -5,26 +5,30 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.lifecycle.HiltViewModel
 import id.rla.silungkangplayground.domain.common.DynamicString
 import id.rla.silungkangplayground.domain.common.Resource
 import id.rla.silungkangplayground.domain.common.SingleEvent
 import id.rla.silungkangplayground.domain.data.Repository
+import id.rla.silungkangplayground.domain.usecase.GetDetailMemberVoucherUseCase
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.uistate.VoucherUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class VoucherViewModel(
-    private val repository: Repository
+@HiltViewModel
+class VoucherViewModel @Inject constructor(
+    private val getDetailMemberVoucherUseCase: GetDetailMemberVoucherUseCase
 ) : ViewModel() {
 
     private val _uiState = MutableStateFlow(VoucherUiState(isLoading = true))
     val uiState: StateFlow<VoucherUiState> = _uiState
     private suspend fun getMemberVoucherInfo() {
         _uiState.value = _uiState.value.copy(isLoading = true)
-        _uiState.value = when (val resource = repository.getDetailMemberVoucher()) {
+        _uiState.value = when (val resource = getDetailMemberVoucherUseCase()) {
             is Resource.Success -> _uiState.value.copy(
                 memberVoucherInfo = resource.data,
                 isLoading = false

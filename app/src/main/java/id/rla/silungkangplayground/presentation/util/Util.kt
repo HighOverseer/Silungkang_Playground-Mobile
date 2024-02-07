@@ -15,17 +15,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelStoreOwner
 import com.bumptech.glide.Glide
 import id.rla.silungkangplayground.domain.common.StringRes
-import id.rla.silungkangplayground.presentation.factory.ViewModelFactory
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
 
 
-inline fun <reified T:ViewModel>ViewModelStoreOwner.obtainViewModel(applicationContext: Context):T{
+/*inline fun <reified T:ViewModel>ViewModelStoreOwner.obtainViewModel(applicationContext: Context):T{
     val factory = ViewModelFactory.getInstance(applicationContext)
     return ViewModelProvider(this, factory)[T::class.java]
-}
+}*/
 
 fun Context.showToast(message:String){
     return Toast.makeText(this, message, Toast.LENGTH_SHORT).show()

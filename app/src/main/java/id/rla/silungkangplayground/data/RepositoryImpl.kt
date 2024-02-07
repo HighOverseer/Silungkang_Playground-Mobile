@@ -16,8 +16,11 @@ import kotlinx.coroutines.withContext
 import retrofit2.Call
 import retrofit2.HttpException
 import retrofit2.awaitResponse
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class RepositoryImpl(
+@Singleton
+class RepositoryImpl @Inject constructor(
     private val apiService: ApiService,
     private val userPreference: UserPreference
 ):Repository {

@@ -3,9 +3,10 @@ package id.rla.silungkangplayground.domain.usecase
 import id.rla.silungkangplayground.domain.common.Resource
 import id.rla.silungkangplayground.domain.common.StringRes
 import id.rla.silungkangplayground.domain.data.Repository
+import javax.inject.Inject
 import kotlin.math.log
 
-class LoginInteractor(
+class LoginInteractor @Inject constructor(
     private val repository: Repository
 ):LoginUseCase {
     override suspend fun invoke(memberId: String, password: String):Resource<StringRes>{

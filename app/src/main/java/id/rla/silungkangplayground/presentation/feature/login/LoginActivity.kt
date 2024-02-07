@@ -1,24 +1,26 @@
 package id.rla.silungkangplayground.presentation.feature.login
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
+import dagger.hilt.android.AndroidEntryPoint
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.ActivityLoginBinding
-import id.rla.silungkangplayground.presentation.util.obtainViewModel
 import id.rla.silungkangplayground.presentation.util.showToast
 import id.rla.silungkangplayground.presentation.feature.dashboard.DashboardActivity
 
+@AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLoginBinding
-    private lateinit var viewModel: LoginViewModel
+
+    private val viewModel: LoginViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        viewModel = obtainViewModel(applicationContext)
         initButtons()
         initObservers()
     }

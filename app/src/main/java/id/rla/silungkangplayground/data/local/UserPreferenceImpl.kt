@@ -8,10 +8,13 @@ import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import id.rla.silungkangplayground.domain.data.UserPreference
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
+import javax.inject.Singleton
 
 val Context.dataStore : DataStore<Preferences> by preferencesDataStore(UserPreferenceImpl.DATA_STORE_NAME)
 
-class UserPreferenceImpl private constructor(
+@Singleton
+class UserPreferenceImpl @Inject constructor(
     private val dataStore:DataStore<Preferences>
 ) : UserPreference {
 

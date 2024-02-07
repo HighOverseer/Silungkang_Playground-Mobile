@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.ui.setupWithNavController
+import dagger.hilt.android.AndroidEntryPoint
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.util.FragmentActivityCallback
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.ActivityMainpageBinding
@@ -15,6 +16,7 @@ import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.info.I
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.playground.PlaygroundFragment
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.VoucherFragment
 
+@AndroidEntryPoint
 class MainPageActivity : AppCompatActivity(), FragmentActivityCallback {
 
     private lateinit var binding: ActivityMainpageBinding

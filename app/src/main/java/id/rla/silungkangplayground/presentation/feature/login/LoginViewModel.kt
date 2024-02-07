@@ -4,15 +4,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import id.rla.silungkangplayground.domain.common.DynamicString
 import id.rla.silungkangplayground.domain.common.Resource
 import id.rla.silungkangplayground.domain.common.SingleEvent
 import id.rla.silungkangplayground.domain.common.StringRes
 import id.rla.silungkangplayground.domain.data.Repository
+import id.rla.silungkangplayground.domain.usecase.LoginUseCase
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class LoginViewModel(
-    private val repository: Repository
+@HiltViewModel
+class LoginViewModel @Inject constructor(
+    private val loginUseCase: LoginUseCase
 ):ViewModel() {
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -28,7 +32,7 @@ class LoginViewModel(
     fun login(memberId:String,password:String){
         _isLoading.value = true
         viewModelScope.launch {
-            val resource = repository.login(
+            val resource = loginUseCase(
                 memberId, password
             )
             when(resource){

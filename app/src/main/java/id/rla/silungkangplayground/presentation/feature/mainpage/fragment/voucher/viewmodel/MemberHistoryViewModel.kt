@@ -5,19 +5,23 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import dagger.hilt.android.lifecycle.HiltViewModel
 import id.rla.silungkangplayground.domain.common.DynamicString
 import id.rla.silungkangplayground.domain.common.Resource
 import id.rla.silungkangplayground.domain.common.SingleEvent
 import id.rla.silungkangplayground.domain.data.Repository
+import id.rla.silungkangplayground.domain.usecase.GetMemberHistoryUseCase
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.uistate.MemberHistoryUiState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class MemberHistoryViewModel(
-    private val repository: Repository
+@HiltViewModel
+class MemberHistoryViewModel @Inject constructor(
+    private val getMemberHistoryUseCase: GetMemberHistoryUseCase
 ):ViewModel() {
 
     private val _uiState = MutableStateFlow(MemberHistoryUiState())
@@ -26,7 +30,7 @@ class MemberHistoryViewModel(
 
     private suspend fun getMemberHistory() {
         _uiState.value = _uiState.value.copy(isLoading = true)
-        _uiState.value = when (val resource = repository.getMemberHistory()) {
+        _uiState.value = when (val resource = getMemberHistoryUseCase()) {
             is Resource.Success -> _uiState.value.copy(
                 listMemberHistory = resource.data,
                 isLoading = false
