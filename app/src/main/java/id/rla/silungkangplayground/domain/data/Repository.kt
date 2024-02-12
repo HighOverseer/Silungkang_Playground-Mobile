@@ -8,7 +8,7 @@ import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
 interface Repository {
 
     suspend fun login(
-        memberId: String,
+        phoneNumber: String,
         password: String
     ): Resource<StringRes>
 

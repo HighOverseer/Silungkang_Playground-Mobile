@@ -35,20 +35,20 @@ class UserPreferenceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getMemberId(): String {
+    override suspend fun getPhoneNumber(): String {
         val preferences = dataStore.data.first()
-        return preferences[MEMBER_ID_KEY] ?: ""
+        return preferences[PHONE_NUMBER_KEY] ?: ""
     }
 
-    override suspend fun saveMemberId(memberId: String) {
+    override suspend fun savePhoneNumber(phoneNumber: String) {
         dataStore.edit { preferences ->
-            preferences[MEMBER_ID_KEY] = memberId
+            preferences[PHONE_NUMBER_KEY] = phoneNumber
         }
     }
 
-    override suspend fun resetMemberId() {
+    override suspend fun resetPhoneNumber() {
         dataStore.edit { preferences ->
-            preferences[MEMBER_ID_KEY] = ""
+            preferences[PHONE_NUMBER_KEY] = ""
         }
     }
 
@@ -56,15 +56,6 @@ class UserPreferenceImpl @Inject constructor(
         const val DATA_STORE_NAME = "user"
 
         private val TOKEN_KEY = stringPreferencesKey("token")
-        private val MEMBER_ID_KEY = stringPreferencesKey("memberId")
-
-        @Volatile
-        private var INSTANCE:UserPreferenceImpl?=null
-
-        fun getInstance(dataStore: DataStore<Preferences>):UserPreferenceImpl{
-            return INSTANCE?: synchronized(this){
-                INSTANCE?:UserPreferenceImpl(dataStore)
-            }.also { INSTANCE = it }
-        }
+        private val PHONE_NUMBER_KEY = stringPreferencesKey("memberId")
     }
 }

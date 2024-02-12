@@ -1,59 +1,65 @@
 package id.rla.silungkangplayground.presentation.feature.login
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.rla.silungkangplayground.domain.common.DynamicString
 import id.rla.silungkangplayground.domain.common.Resource
-import id.rla.silungkangplayground.domain.common.SingleEvent
-import id.rla.silungkangplayground.domain.common.StringRes
-import id.rla.silungkangplayground.domain.data.Repository
 import id.rla.silungkangplayground.domain.usecase.LoginUseCase
+import id.rla.silungkangplayground.presentation.util.UIEvent
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class LoginViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase
-):ViewModel() {
+) : ViewModel() {
 
-    private val _isLoading = MutableLiveData<Boolean>()
-    val isLoading:LiveData<Boolean> = _isLoading
+    private val _uiState = MutableStateFlow(LoginUIState())
+    val uiState: StateFlow<LoginUIState> = _uiState
 
-    private val _toastMessage = MutableLiveData<SingleEvent<StringRes>>()
-    val toastMessage:LiveData<SingleEvent<StringRes>> = _toastMessage
+    private val _uiEvent = Channel<UIEvent>()
+    val uiEvent = _uiEvent.receiveAsFlow()
 
-    private val _userAuthenticatedEvent = MutableLiveData<SingleEvent<Unit>>()
-    val userAuthenticatedEvent:LiveData<SingleEvent<Unit>> = _userAuthenticatedEvent
-
-
-    fun login(memberId:String,password:String){
-        _isLoading.value = true
+    fun login(phoneNumber: String, password: String) {
         viewModelScope.launch {
+            _uiState.update {
+                it.copy(isLoading = true)
+            }
+
             val resource = loginUseCase(
-                memberId, password
+                phoneNumber, password
             )
-            when(resource){
+            when (resource) {
                 is Resource.Success -> {
-                    _toastMessage.value = SingleEvent(resource.data)
-                    _userAuthenticatedEvent.value = SingleEvent(Unit)
+                    _uiEvent.send(UIEvent.ToastMessageEvent(resource.data))
+                    _uiEvent.send(UIEvent.OnUserAuthenticatedEvent)
                 }
+
                 is Resource.Failure -> {
-                    _toastMessage.value = SingleEvent(resource.message)
+                    _uiEvent.send(UIEvent.ToastMessageEvent(resource.message))
                 }
+
                 is Resource.Error -> {
-                    _toastMessage.value = SingleEvent(
-                        DynamicString(
-                            resource.e.message.toString()
+                    _uiEvent.send(
+                        UIEvent.ToastMessageEvent(
+                            DynamicString(
+                                resource.e.message.toString()
+                            )
                         )
                     )
                 }
 
             }
-            _isLoading.value = false
-
+        }.invokeOnCompletion{
+            _uiState.update {
+                it.copy(isLoading = false)
+            }
         }
     }
 

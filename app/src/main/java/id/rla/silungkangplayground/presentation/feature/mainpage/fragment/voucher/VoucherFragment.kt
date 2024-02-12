@@ -7,9 +7,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import id.rla.silungkangplayground.R
@@ -20,9 +17,10 @@ import id.rla.silungkangplayground.presentation.customview.BindingFragment
 import id.rla.silungkangplayground.presentation.feature.feedback.FeedbackDialogFragment
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.util.OnProcessingVoucherExchangeListener
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.VoucherViewModel
+import id.rla.silungkangplayground.presentation.util.UIEvent
+import id.rla.silungkangplayground.presentation.util.collectChannelFlowOnLifecycleStarted
+import id.rla.silungkangplayground.presentation.util.collectLatestOnLifeCycleStarted
 import id.rla.silungkangplayground.presentation.util.showToast
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 import kotlin.random.Random
 
 
@@ -56,33 +54,26 @@ class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
     }
 
     private fun initObserver() {
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                viewModel.uiState.collectLatest { uiState ->
-                    uiState.apply {
-                        binding?.apply {
-                            memberVoucherInfo?.apply {
-                                actvEmptyInfo.isVisible = listVoucher.isEmpty()
+        viewLifecycleOwner.collectLatestOnLifeCycleStarted(viewModel.uiState){ uiState ->
+            uiState.apply {
+                binding?.apply {
+                    memberVoucherInfo?.apply {
+                        actvEmptyInfo.isVisible = listVoucher.isEmpty()
 
-                                val adapter = ActiveVoucherAdapter(listVoucher)
-                                rvActiveVoucher.adapter = adapter
+                        val adapter = ActiveVoucherAdapter(listVoucher)
+                        rvActiveVoucher.adapter = adapter
 
-
-                                actvActiveVoucherCount.text = activeVoucherCount.toString()
-                                actvPointCount.text = point
-
-
-                            }
-
-                            progressBar.isVisible = isLoading
-
-                            toastMessage?.getContentIfNotHandled()?.let {
-                                requireActivity().showToast(it)
-                            }
-                        }
+                        actvActiveVoucherCount.text = activeVoucherCount.toString()
+                        actvPointCount.text = point
                     }
+
+                    progressBar.isVisible = isLoading
                 }
             }
+        }
+
+        viewLifecycleOwner.collectChannelFlowOnLifecycleStarted(viewModel.uiEvent){ uiEvent ->
+            if (uiEvent is UIEvent.ToastMessageEvent) requireActivity().showToast(uiEvent.message)
         }
     }
 

@@ -11,11 +11,13 @@ import id.rla.silungkangplayground.domain.data.UserPreference
 import id.rla.silungkangplayground.domain.helper.Mapper
 import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.NonCancellable
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import retrofit2.Call
 import retrofit2.HttpException
-import retrofit2.awaitResponse
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -25,11 +27,12 @@ class RepositoryImpl @Inject constructor(
     private val userPreference: UserPreference
 ):Repository {
 
+/*
     private suspend fun <T, S> fetchData(
         fetch: suspend () -> Call<T>,
+        mapData: suspend T.() -> S,
         execute: T.() -> Unit = { },
         executeSuspend: suspend T.() -> Unit = { },
-        mapData: T.() -> S,
     ): Resource<S> = withContext(Dispatchers.IO) {
         try {
             val response = fetch().awaitResponse()
@@ -38,8 +41,12 @@ class RepositoryImpl @Inject constructor(
                 responseBody.execute()
                 responseBody.executeSuspend()
 
-                Resource.Success(
+                val result = withContext(Dispatchers.Default){
                     mapData(responseBody)
+                }
+
+                Resource.Success(
+                    result
                 )
             } else {
                 response.errorBody()?.string()?.let {
@@ -52,36 +59,76 @@ class RepositoryImpl @Inject constructor(
                     )
                 )
             }
-        } catch (e: HttpException) {
+        }catch (e: Exception) {
+            if (e is CancellationException) throw e
+
             Resource.Error(e)
-        } catch (e: Exception) {
+        }
+    }
+*/
+
+
+    private suspend fun <T, S> fetchData(
+        fetch: suspend () -> T,
+        mapData: suspend T.() -> S,
+        execute: T.() -> Unit = { },
+        executeSuspend: suspend T.() -> Unit = { },
+    ): Resource<S> = withContext(Dispatchers.IO) {
+        try {
+            val data = fetch()
+            data.execute()
+            data.executeSuspend()
+
+            val result = mapData(data)
+
+            Resource.Success(
+                result
+            )
+        }catch (e:HttpException){
+            e.response()?.errorBody()?.string()?.let {
+                Resource.Failure(
+                    DynamicString(it)
+                )
+            }?:Resource.Failure(
+                StaticString(
+                    R.string.response_not_success
+                )
+            )
+        }catch (e: Exception) {
+            if (e is CancellationException) throw e
+
             Resource.Error(e)
         }
     }
 
-    override suspend fun login(memberId: String, password: String): Resource<StringRes>
-     = withContext(Dispatchers.Default){
-        fetchData(
+
+    override suspend fun login(phoneNumber: String, password: String): Resource<StringRes> {
+        return fetchData(
             fetch = {
-                apiService.login(memberId, password)
+                apiService.login(phoneNumber, password)
             },
             executeSuspend = {
-                if (token.isNullOrBlank()) throw Exception("Token not found..")
+                withContext(NonCancellable){
+                    if (token.isNullOrBlank()) throw Exception("Token not found..")
 
-                userPreference.saveToken(token)
-                userPreference.saveMemberId(memberId)
+                    listOf(
+                        launch { userPreference.saveToken(token) },
+                        launch { userPreference.savePhoneNumber(phoneNumber) }
+                    ).joinAll()
+                }
+
             },
             mapData = {
-                DynamicString(message.toString())
+                val message = message ?: "Login Berhasil!"
+                DynamicString(message)
             }
         )
     }
 
-    override suspend fun getDetailMemberVoucher(): Resource<MemberVoucherInfo>
-     = withContext(Dispatchers.Default){
-         fetchData(
+    override suspend fun getDetailMemberVoucher(): Resource<MemberVoucherInfo> {
+         return fetchData(
              fetch = {
-                 val memberId = userPreference.getMemberId()
+                 val memberId = userPreference.getPhoneNumber()
                  apiService.getMemberVoucherInfo(memberId)
              },
              mapData = {
@@ -93,30 +140,15 @@ class RepositoryImpl @Inject constructor(
     }
 
 
-    override suspend fun getMemberHistory(): Resource<List<MemberHistoryItem>>
-    = withContext(Dispatchers.Default){
-        fetchData(
+    override suspend fun getMemberHistory(): Resource<List<MemberHistoryItem>>{
+        return fetchData(
             fetch = {
-                val memberId = userPreference.getMemberId()
+                val memberId = userPreference.getPhoneNumber()
                 apiService.getMemberHistory(memberId)
             },
             mapData = {
                 Mapper.mapMemberHistoryDtoToDomain(this)
             }
         )
-    }
-
-    companion object{
-        @Volatile
-        private var INSTANCE:RepositoryImpl?=null
-
-        fun getInstance(
-            apiService: ApiService,
-            userPreference: UserPreference
-        ):RepositoryImpl{
-            return INSTANCE?: synchronized(this){
-                INSTANCE?:RepositoryImpl(apiService, userPreference)
-            }.also { INSTANCE = it }
-        }
     }
 }

@@ -8,20 +8,20 @@ import androidx.recyclerview.widget.RecyclerView
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.HeaderPageItemBinding
 import id.rla.silungkangplayground.databinding.ItemEventBinding
-import id.rla.silungkangplayground.domain.model.Event
+import id.rla.silungkangplayground.domain.model.EventPlayground
 import id.rla.silungkangplayground.presentation.util.loadImage
 
-class EventAdapter:ListAdapter<Event, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
+class EventAdapter:ListAdapter<EventPlayground, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
 
     class EventViewHolder(val binding:ItemEventBinding):RecyclerView.ViewHolder(binding.root){
-        fun bind(event: Event){
+        fun bind(eventPlayground: EventPlayground){
             itemView.context.apply {
                 binding.apply {
-                    acivThumbnail.loadImage(event.thumbnailUrl)
-                    actvTitle.text = event.title
-                    actvDate.text = getString(R.string.tanggal_24_01_2024, event.date)
-                    actvTime.text = getString(R.string.jam_event, event.time)
+                    acivThumbnail.loadImage(eventPlayground.thumbnailUrl)
+                    actvTitle.text = eventPlayground.title
+                    actvDate.text = getString(R.string.tanggal_24_01_2024, eventPlayground.date)
+                    actvTime.text = getString(R.string.jam_event, eventPlayground.time)
                 }
             }
         }
@@ -63,7 +63,7 @@ class EventAdapter:ListAdapter<Event, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
         (holder as EventViewHolder).bind(currItem)
     }
 
-    override fun getItem(position: Int): Event {
+    override fun getItem(position: Int): EventPlayground {
         return super.getItem(getItemFixPosition(position))
     }
 
@@ -87,12 +87,12 @@ class EventAdapter:ListAdapter<Event, RecyclerView.ViewHolder>(DIFF_CALLBACK) {
 
         private const val CONTENT_TYPE = 200
 
-        private val DIFF_CALLBACK = object:DiffUtil.ItemCallback<Event>(){
-            override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
+        private val DIFF_CALLBACK = object:DiffUtil.ItemCallback<EventPlayground>(){
+            override fun areItemsTheSame(oldItem: EventPlayground, newItem: EventPlayground): Boolean {
                 return oldItem.title == newItem.title
             }
 
-            override fun areContentsTheSame(oldItem: Event, newItem: Event): Boolean {
+            override fun areContentsTheSame(oldItem: EventPlayground, newItem: EventPlayground): Boolean {
                 return oldItem == newItem
             }
         }

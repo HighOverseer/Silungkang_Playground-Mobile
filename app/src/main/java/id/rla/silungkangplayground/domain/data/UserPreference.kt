@@ -7,9 +7,9 @@ interface UserPreference {
 
     suspend fun resetToken()
 
-    suspend fun getMemberId():String
-    suspend fun saveMemberId(memberId:String)
+    suspend fun getPhoneNumber():String
+    suspend fun savePhoneNumber(phoneNumber:String)
 
-    suspend fun resetMemberId()
+    suspend fun resetPhoneNumber()
 
 }

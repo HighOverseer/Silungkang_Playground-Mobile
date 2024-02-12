@@ -6,20 +6,18 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
-import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.util.FragmentActivityCallback
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.FragmentMemberHistoryBinding
+import id.rla.silungkangplayground.domain.common.Event
 import id.rla.silungkangplayground.presentation.customview.BindingFragment
 import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.MemberHistoryAdapter
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.MemberHistoryViewModel
+import id.rla.silungkangplayground.presentation.util.UIEvent
+import id.rla.silungkangplayground.presentation.util.collectChannelFlowOnLifecycleStarted
+import id.rla.silungkangplayground.presentation.util.collectLatestOnLifeCycleStarted
 import id.rla.silungkangplayground.presentation.util.showToast
-import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 
 @AndroidEntryPoint
@@ -56,25 +54,20 @@ class MemberHistoryFragment : BindingFragment<FragmentMemberHistoryBinding>(){
 
     private fun initObserver(){
         binding?.apply {
-            viewLifecycleOwner.lifecycleScope.launch {
-                viewLifecycleOwner.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
-                    viewModel.uiState.collectLatest { uiState ->
+            viewLifecycleOwner.collectLatestOnLifeCycleStarted(viewModel.uiState){ uiState ->
+                if (rvVoucherHistory.adapter == null) rvVoucherHistory.adapter = adapter
 
-                        if (rvVoucherHistory.adapter == null) rvVoucherHistory.adapter = adapter
+                adapter.submitList(uiState.listMemberHistory)
 
-                        adapter.submitList(uiState.listMemberHistory)
+                actvEmptyInfo.isVisible = uiState.listMemberHistory.isEmpty()
 
-                        actvEmptyInfo.isVisible = uiState.listMemberHistory.isEmpty()
+                progressBar.isVisible = uiState.isLoading
 
-                        progressBar.isVisible = uiState.isLoading
-
-                        uiState.toastMessage?.getContentIfNotHandled()?.let {
-                            requireActivity().showToast(it)
-                        }
-                    }
-                }
             }
 
+            viewLifecycleOwner.collectChannelFlowOnLifecycleStarted(viewModel.uiEvent){ uiEvent ->
+                if (uiEvent is UIEvent.ToastMessageEvent) requireActivity().showToast(uiEvent.message)
+            }
         }
 
     }

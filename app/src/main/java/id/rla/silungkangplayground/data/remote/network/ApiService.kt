@@ -12,26 +12,26 @@ interface ApiService {
 
     @FormUrlEncoded
     @POST("login")
-    fun login(
-        @Field("member_id")
-        memberId:String,
+    suspend fun login(
+        @Field("handphone_nomor")
+        phoneNumber:String,
         @Field("password")
         password:String
-    ): Call<LoginResponse>
+    ): LoginResponse
 
     @FormUrlEncoded
     @POST("spg/member/getMember")
-    fun getMemberVoucherInfo(
+    suspend fun getMemberVoucherInfo(
         @Field("memberId")
         memberId:String
-    ):Call<MemberVoucherInfoResponse>
+    ):MemberVoucherInfoResponse
 
     @FormUrlEncoded
     @POST("spg/memberHistory/get")
-    fun getMemberHistory(
+    suspend fun getMemberHistory(
         @Field("member_id")
         memberId: String
-    ):Call<GetMemberHistoryResponse>
+    ):GetMemberHistoryResponse
 
 
 }

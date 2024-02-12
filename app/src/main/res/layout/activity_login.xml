@@ -49,17 +49,18 @@
         app:layout_constraintTop_toBottomOf="@id/aciv_icon" />
 
     <androidx.appcompat.widget.AppCompatEditText
-        android:id="@+id/acet_member_id"
+        android:id="@+id/acet_hp_number"
         style="@style/EditText.12sp.Medium"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:layout_marginTop="35dp"
         android:layout_marginEnd="32dp"
-        android:hint="@string/member_id"
-        android:maxLength="30"
+        android:hint="@string/nomor_hp"
+        android:maxLength="14"
         android:maxLines="1"
-        tools:text="@string/abuabdillah"
+        tools:text="6281356279295"
+        android:digits="0123456789"
         app:layout_constraintEnd_toEndOf="@id/actv_info"
         app:layout_constraintStart_toStartOf="@id/actv_info"
         app:layout_constraintTop_toBottomOf="@id/actv_info" />
@@ -79,7 +80,7 @@
         tools:text="abuabdillah"
         app:layout_constraintEnd_toEndOf="@id/actv_info"
         app:layout_constraintStart_toStartOf="@id/actv_info"
-        app:layout_constraintTop_toBottomOf="@id/acet_member_id" />
+        app:layout_constraintTop_toBottomOf="@id/acet_hp_number" />
 
 
     <androidx.constraintlayout.widget.Guideline

@@ -10,11 +10,19 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.os.ConfigurationCompat
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.LifecycleOwner
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
 import id.rla.silungkangplayground.domain.common.StringRes
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -93,6 +101,32 @@ fun ImageView.loadImage(imageResId: Int) {
 
 }
 
+
+fun <T> LifecycleOwner.collectLatestOnLifeCycleStarted(stateFlow: StateFlow<T>, onCollectLatest: suspend (T) -> Unit){
+    this.lifecycleScope.launch {
+        this@collectLatestOnLifeCycleStarted.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            stateFlow.collectLatest(action = onCollectLatest)
+        }
+    }
+}
+
+fun <T> LifecycleOwner.collectChannelFlowOnLifecycleStarted(flow: Flow<T>, onCollect: suspend (T) -> Unit){
+    this.lifecycleScope.launch {
+        this@collectChannelFlowOnLifecycleStarted.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            withContext(Dispatchers.Main.immediate){
+                flow.collect(onCollect)
+            }
+        }
+    }
+}
+
+fun LifecycleOwner.doSomethingOnlyLifeCycleStarted(doSomething: suspend () -> Unit):Job{
+    return this.lifecycleScope.launch {
+        this@doSomethingOnlyLifeCycleStarted.lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED){
+            doSomething()
+        }
+    }
+}
 
 fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap? {
     val  drawable = ContextCompat.getDrawable(context, drawableId)

@@ -1,14 +1,19 @@
 package id.rla.silungkangplayground.presentation.feature.login
 
+import android.net.Uri
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.net.toFile
 import androidx.core.view.isVisible
 import dagger.hilt.android.AndroidEntryPoint
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.ActivityLoginBinding
 import id.rla.silungkangplayground.presentation.util.showToast
 import id.rla.silungkangplayground.presentation.feature.dashboard.DashboardActivity
+import id.rla.silungkangplayground.presentation.util.UIEvent
+import id.rla.silungkangplayground.presentation.util.collectChannelFlowOnLifecycleStarted
+import id.rla.silungkangplayground.presentation.util.collectLatestOnLifeCycleStarted
 
 @AndroidEntryPoint
 class LoginActivity : AppCompatActivity() {
@@ -26,25 +31,22 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun initObservers() {
-        viewModel.apply {
-            binding.apply {
-                isLoading.observe(this@LoginActivity){isLoading ->
-                    progressBar.isVisible = isLoading
-                    buttonLogin.isEnabled = !isLoading
+        binding.apply {
+            collectLatestOnLifeCycleStarted(viewModel.uiState){ uiState ->
+                progressBar.isVisible = uiState.isLoading
+                buttonLogin.isEnabled = !uiState.isLoading
 
-                }
+            }
 
-                toastMessage.observe(this@LoginActivity){
-                    it.getContentIfNotHandled()?.let { stringRes ->
-                        showToast(stringRes)
-                    }
-                }
-
-                userAuthenticatedEvent.observe(this@LoginActivity){
-                    it.getContentIfNotHandled()?.let {
+            collectChannelFlowOnLifecycleStarted(viewModel.uiEvent){event ->
+                when(event){
+                    is UIEvent.OnUserAuthenticatedEvent -> {
                         buttonLogin.isEnabled = false
                         setResult(DashboardActivity.LOGIN_SUCCESS_RESULT_CODE)
                         finish()
+                    }
+                    is UIEvent.ToastMessageEvent -> {
+                        showToast(event.message)
                     }
                 }
             }
@@ -60,19 +62,11 @@ class LoginActivity : AppCompatActivity() {
 
     private fun login(){
         binding.apply {
-            val memberId = acetMemberId.text.toString().trim()
-            val password = acetPassword.text.toString().trim()
-
-            if (memberId.isEmpty() || password.isEmpty()) return@apply
-
             viewModel.login(
-                memberId,
-                password
+                acetHpNumber.text.toString(),
+                acetPassword.text.toString()
             )
-            return
         }
-
-        showToast(getString(R.string.usename_atau_password_tidak_boleh_kosong))
     }
 
 }

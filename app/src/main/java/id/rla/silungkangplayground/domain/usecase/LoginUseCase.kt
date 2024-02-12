@@ -5,7 +5,7 @@ import id.rla.silungkangplayground.domain.common.StringRes
 
 interface LoginUseCase {
     suspend operator fun invoke(
-        memberId:String,
+        phoneNumber:String,
         password:String
     ):Resource<StringRes>
 
