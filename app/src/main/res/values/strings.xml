@@ -69,4 +69,6 @@
     <string name="hari_libur">Hari Libur</string>
     <string name="riwayat_kosong">Riwayat kosong..</string>
     <string name="nomor_hp">Nomor Hp</string>
+    <string name="kartu_member">Kartu Member</string>
+    <string name="tidak_kartu_member_yang_ditemukan">Tidak kartu member yang ditemukan..</string>
 </resources>

@@ -1,5 +1,7 @@
 package id.rla.silungkangplayground.domain.helper
 
+import android.content.Context
+import id.rla.silungkangplayground.domain.model.CardMember
 import id.rla.silungkangplayground.domain.model.EventPlayground
 import id.rla.silungkangplayground.domain.model.OperationalHours
 import id.rla.silungkangplayground.domain.model.PlaygroundModel
@@ -8,6 +10,13 @@ import id.rla.silungkangplayground.domain.model.TicketInfo
 import id.rla.silungkangplayground.domain.model.Voucher
 import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.VoucherType
+import id.rla.silungkangplayground.presentation.util.generateQrCode
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
+import kotlinx.coroutines.joinAll
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 object Dummy {
 
@@ -29,6 +38,35 @@ object Dummy {
 
         }
     }
+
+/*    suspend fun getCardMember(applicationContext: Context):List<CardMember>{
+        return withContext(Dispatchers.Default){
+            val qrCodes = listOf(
+                async { "lfnslknflsndfl".generateQrCode(applicationContext) },
+                async { "sdfsfsdfsdfsf".generateQrCode(applicationContext) },
+                async { "sdfdsfsfknknjk".generateQrCode(applicationContext) }
+            ).awaitAll()
+
+            listOf(
+                CardMember(
+                    1,
+                    qrCodes[0],
+                    "Fajar",
+                ),
+                CardMember(
+                    1,
+                    qrCodes[1],
+                    "Fajar",
+                ),
+                CardMember(
+                    1,
+                    qrCodes[2],
+                    "Fajar",
+                )
+            )
+        }
+
+    }*/
 
     fun getVoucherHistoryItem():List<MemberHistoryItem>{
         return listOf(

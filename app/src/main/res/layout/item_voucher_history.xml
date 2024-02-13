@@ -25,7 +25,7 @@
         app:layout_constraintStart_toEndOf="@id/actv_no"
         app:layout_constraintTop_toTopOf="@id/actv_no" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <id.rla.silungkangplayground.presentation.customview.MultilineTextView
         android:id="@+id/actv_information"
         style="@style/MemberHistoryTableColumnInformation"
         android:layout_width="0dp"
@@ -50,6 +50,7 @@
         style="@style/MemberHistoryTableColumnDate"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:inputType="text"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@id/guideline5"

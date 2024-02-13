@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import id.rla.silungkangplayground.domain.data.UserPreference
@@ -35,20 +36,21 @@ class UserPreferenceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getPhoneNumber(): String {
+    override suspend fun getPhoneId(): Int {
         val preferences = dataStore.data.first()
-        return preferences[PHONE_NUMBER_KEY] ?: ""
+        return preferences[PHONE_ID_KEY] ?: -1
     }
 
-    override suspend fun savePhoneNumber(phoneNumber: String) {
+
+    override suspend fun savePhoneId(phoneId: Int) {
         dataStore.edit { preferences ->
-            preferences[PHONE_NUMBER_KEY] = phoneNumber
+            preferences[PHONE_ID_KEY] = phoneId
         }
     }
 
-    override suspend fun resetPhoneNumber() {
+    override suspend fun resetPhoneId() {
         dataStore.edit { preferences ->
-            preferences[PHONE_NUMBER_KEY] = ""
+            preferences[PHONE_ID_KEY] = -1
         }
     }
 
@@ -56,6 +58,6 @@ class UserPreferenceImpl @Inject constructor(
         const val DATA_STORE_NAME = "user"
 
         private val TOKEN_KEY = stringPreferencesKey("token")
-        private val PHONE_NUMBER_KEY = stringPreferencesKey("memberId")
+        private val PHONE_ID_KEY = intPreferencesKey("phone_id")
     }
 }

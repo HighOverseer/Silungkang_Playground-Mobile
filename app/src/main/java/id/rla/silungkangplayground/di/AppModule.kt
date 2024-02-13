@@ -5,6 +5,8 @@ import dagger.Module
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 import dagger.hilt.android.scopes.ViewModelScoped
+import id.rla.silungkangplayground.domain.usecase.GetCardMemberInteractor
+import id.rla.silungkangplayground.domain.usecase.GetCardMemberUseCase
 import id.rla.silungkangplayground.domain.usecase.GetDetailMemberVoucherInteractor
 import id.rla.silungkangplayground.domain.usecase.GetDetailMemberVoucherUseCase
 import id.rla.silungkangplayground.domain.usecase.GetMemberHistoryInteractor
@@ -27,5 +29,9 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun provideGetMemberHistoryInteractor(getMemberHistoryInteractor: GetMemberHistoryInteractor):GetMemberHistoryUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideGetCardMemberInteractor(getCardMemberInteractor: GetCardMemberInteractor):GetCardMemberUseCase
 
 }

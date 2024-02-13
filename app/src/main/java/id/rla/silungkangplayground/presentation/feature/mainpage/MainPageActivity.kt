@@ -12,7 +12,7 @@ import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.vouche
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.ActivityMainpageBinding
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.event.EventFragment
-import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.info.InfoFragment
+import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.card_member.CardMemberFragment
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.playground.PlaygroundFragment
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.VoucherFragment
 
@@ -34,7 +34,7 @@ class MainPageActivity : AppCompatActivity(), FragmentActivityCallback {
     override fun keepBottomNavSelected(menuId: Int) {
         binding.content.bottomNavigation.apply {
             when (menuId) {
-                R.id.menu_event, R.id.menu_info, R.id.menu_playground, R.id.menu_voucher -> {
+                R.id.menu_event, R.id.menu_card_member, R.id.menu_playground, R.id.menu_voucher -> {
                     val menuItem = menu.findItem(menuId)
                     menuItem.isChecked = true
                 }
@@ -60,7 +60,7 @@ class MainPageActivity : AppCompatActivity(), FragmentActivityCallback {
         binding.content.bottomNavigation.setOnItemReselectedListener {
             val currFragment = getCurrentFragment()
             if (currFragment !is EventFragment &&
-                currFragment !is InfoFragment &&
+                currFragment !is CardMemberFragment &&
                 currFragment !is VoucherFragment &&
                 currFragment !is PlaygroundFragment){
 

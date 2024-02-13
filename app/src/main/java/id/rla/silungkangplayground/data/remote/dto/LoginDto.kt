@@ -2,13 +2,10 @@ package id.rla.silungkangplayground.data.remote.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class LoginResponse(
+data class LoginDto(
 
-	@field:SerializedName("message")
-	val message: String? = null,
-
-	@field:SerializedName("status")
-	val status: String? = null,
+	@field:SerializedName("phone_id")
+	val phoneId: Int? = null,
 
 	@field:SerializedName("token")
 	val token: String? = null

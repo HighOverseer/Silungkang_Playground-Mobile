@@ -1,9 +1,12 @@
 package id.rla.silungkangplayground.domain.helper
 
-import id.rla.silungkangplayground.data.remote.dto.GetMemberHistoryResponse
-import id.rla.silungkangplayground.data.remote.dto.MemberVoucherInfoResponse
+import id.rla.silungkangplayground.data.helper.QrCodeGenerator
+import id.rla.silungkangplayground.data.remote.dto.CardMemberDto
+import id.rla.silungkangplayground.data.remote.dto.VoucherHistoryDto
+import id.rla.silungkangplayground.data.remote.dto.VoucherInfoDto
 import id.rla.silungkangplayground.domain.common.Constants.PATTERN_DATE_DOMAIN
 import id.rla.silungkangplayground.domain.common.Constants.PATTERN_DATE_RESPONSE
+import id.rla.silungkangplayground.domain.model.CardMember
 import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
 import id.rla.silungkangplayground.domain.model.Voucher
@@ -17,23 +20,28 @@ import java.text.SimpleDateFormat
 import java.util.Locale
 
 object Mapper {
-    suspend fun mapMemberVoucherInfoDtoToDomain(response: MemberVoucherInfoResponse):MemberVoucherInfo
+    suspend fun mapMemberVoucherInfoDtoToDomain(voucherInfoDto: VoucherInfoDto?):MemberVoucherInfo
      = withContext(Dispatchers.Default){
-        val listVoucher = mapResponseToVoucher(response.voucherTarget, response.voucherType)
+         if (voucherInfoDto == null) throw Exception("Data Tidak Ditemukan..")
+
+        val listVoucher = mapResponseToVoucher(voucherInfoDto.voucherTarget, voucherInfoDto.voucherType, voucherInfoDto.tanggalExpired)
 
         MemberVoucherInfo(
-            point = response.point ?: "0",
+            point = voucherInfoDto.point ?: "0",
             listVoucher = listVoucher,
-            activeVoucherCount = response.voucherCount ?: 0
+            activeVoucherCount = voucherInfoDto.voucherCount ?: 0
         )
     }
 
     private suspend fun mapResponseToVoucher(
         voucherTarget:String?,
-        voucherType:String?
+        voucherType:String?,
+        voucherExpiredDate:String?
     ):List<Voucher>
     = withContext(Dispatchers.Default){
-        if (voucherTarget.isNullOrBlank() || voucherType.isNullOrBlank()) return@withContext emptyList()
+        if (voucherTarget.isNullOrBlank() || voucherType.isNullOrBlank() || voucherExpiredDate.isNullOrBlank()) {
+            return@withContext emptyList()
+        }
 
         val listVoucherValue = voucherType.split(",").map {
             ensureActive() //check if coroutine are not cancelled
@@ -45,26 +53,31 @@ object Mapper {
         }
         val listVoucherTarget = voucherTarget.split(",")
 
-        if (listVoucherTarget.size != listVoucherValue.size) return@withContext emptyList()
+        val listVoucherExpiredDate = voucherExpiredDate.split(",")
+
+        val isAllListHasSameLength = listOf(listVoucherValue, listVoucherTarget, listVoucherExpiredDate).distinct().size == 1
+        if (isAllListHasSameLength) return@withContext emptyList()
 
         val listVoucher = MutableList(listVoucherValue.size){ i ->
             ensureActive()
 
+            val fixVoucherType = VoucherType.entries.first { it.code == listVoucherTarget[i] }
+
             Voucher(
-                VoucherType.entries.first { it.code == listVoucherTarget[i] },
+                 fixVoucherType,
                 listVoucherValue[i],
-                "30/11/2023"
+                listVoucherExpiredDate[i]
             )
         }
         listVoucher
     }
 
     suspend fun mapMemberHistoryDtoToDomain(
-        response: GetMemberHistoryResponse
+        list: List<VoucherHistoryDto>?
     ):List<MemberHistoryItem>
     = withContext(Dispatchers.Default){
 
-        val data = response.data ?: return@withContext emptyList()
+        val data = list ?: return@withContext emptyList()
 
         val formatDateResponse = SimpleDateFormat(PATTERN_DATE_RESPONSE, Locale.getDefault())
         val formatDateDomain = SimpleDateFormat(PATTERN_DATE_DOMAIN, Locale.getDefault())
@@ -72,7 +85,11 @@ object Mapper {
         data.map {
             ensureActive()
 
-            val date = it.createdAt?.let { dateString ->
+            if (it.id == null || it.keterangan == null || it.createdAt == null || it.memberName == null) {
+                return@withContext emptyList()
+            }
+
+            val date = it.createdAt.let { dateString ->
                 val dateWithoutTime = dateString.substring(0, 10)
 
                 formatDateResponse.parse(dateWithoutTime)
@@ -81,27 +98,39 @@ object Mapper {
 
             val dateDomainString = formatDateDomain.format(date)
 
+            val information = "${it.memberName} ${it.keterangan}"
+
             MemberHistoryItem(
-                it.id?.toLong() ?: -1L,
-                it.keterangan ?: "null",
+                it.id.toLong(),
+                information,
                 dateDomainString
             )
         }
     }
 
-    /*suspend fun mapLoginResponseToDomain(loginResponse: LoginResponse):LoginInfo
-    = withContext(Dispatchers.Default){
-        ensureActive()
+    suspend fun mapCardMemberDtoToDomain(
+        qrCodeGenerator: QrCodeGenerator,
+        list:List<CardMemberDto>?
+    ):List<CardMember>{
+        return withContext(Dispatchers.Default){
+            if (list == null) return@withContext emptyList()
 
-        //val memberIds = loginResponse.data?.memberIds?.split(",")?
-        val message = loginResponse.message ?: "Login Berhasil!"
-        //if(memberIds.isNullOrEmpty()) throw Exception("Member Id tidak ditemukan..")
+            list.map {
+                ensureActive()
 
-        LoginInfo(
-            memberIds = memberIds,
-            message = DynamicString(message)
-        )
-    }*/
+                if (it.memberId == null || it.memberName == null) return@withContext emptyList()
+
+                val qrCodeBitmap = qrCodeGenerator.generate(it.memberId)
+
+                CardMember(
+                    it.memberId,
+                    qrCodeBitmap,
+                    it.memberName
+                )
+            }
+        }
+
+    }
 
 
 }

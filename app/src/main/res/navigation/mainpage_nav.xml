@@ -25,13 +25,13 @@
         android:label="fragment_playground"
         tools:layout="@layout/fragment_playground" />
     <fragment
-        android:id="@+id/menu_info"
-        android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.info.InfoFragment"
-        android:label="fragment_info"
-        tools:layout="@layout/fragment_info" />
+        android:id="@+id/menu_card_member"
+        android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.card_member.CardMemberFragment"
+        android:label="fragment_card_member"
+        tools:layout="@layout/fragment_card_member" />
     <fragment
         android:id="@+id/memberHistoryFragment"
-        android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.MemberHistoryFragment"
+        android:name="id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.VoucherHistoryFragment"
         android:label="fragment_voucher_history"
-        tools:layout="@layout/fragment_member_history" />
+        tools:layout="@layout/fragment_voucher_history" />
 </navigation>

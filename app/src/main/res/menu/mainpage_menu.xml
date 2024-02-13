@@ -21,9 +21,9 @@
         android:title="@string/voucher"/>
 
     <item
-        android:id="@+id/menu_info"
-        android:icon="@drawable/ic_menu_info"
+        android:id="@+id/menu_card_member"
+        android:icon="@drawable/ic_menu_card_member"
         android:checkable="true"
-        android:title="@string/info"/>
+        android:title="@string/kartu_member"/>
 
 </menu>

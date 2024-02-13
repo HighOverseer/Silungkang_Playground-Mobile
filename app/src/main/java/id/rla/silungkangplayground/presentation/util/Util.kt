@@ -15,9 +15,13 @@ import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
 import com.bumptech.glide.Glide
+import com.google.zxing.BarcodeFormat
+import com.google.zxing.MultiFormatWriter
+import com.journeyapps.barcodescanner.BarcodeEncoder
 import id.rla.silungkangplayground.domain.common.StringRes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -99,6 +103,29 @@ fun ImageView.loadImage(imageResId: Int) {
         .load(imageResId)
         .into(this)
 
+}
+
+fun ImageView.loadImage(imageBitmap: Bitmap) {
+    Glide.with(context)
+        .load(imageBitmap)
+        .into(this)
+
+}
+
+suspend fun String.generateQrCode(applicationContext:Context):Bitmap{
+    return withContext(Dispatchers.Default) {
+
+        val multiFormatWriter = MultiFormatWriter()
+        ensureActive()
+
+        val displayMetrics = applicationContext.resources.displayMetrics
+        val bitMatrix = multiFormatWriter.encode(this@generateQrCode, BarcodeFormat.QR_CODE, 200.toDp(displayMetrics), 200.toDp(displayMetrics))
+
+        val barEncoder = BarcodeEncoder()
+        ensureActive()
+
+        barEncoder.createBitmap(bitMatrix)
+    }
 }
 
 

@@ -9,8 +9,7 @@ import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.util.FragmentActivityCallback
 import id.rla.silungkangplayground.R
-import id.rla.silungkangplayground.databinding.FragmentMemberHistoryBinding
-import id.rla.silungkangplayground.domain.common.Event
+import id.rla.silungkangplayground.databinding.FragmentVoucherHistoryBinding
 import id.rla.silungkangplayground.presentation.customview.BindingFragment
 import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.MemberHistoryAdapter
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.MemberHistoryViewModel
@@ -21,7 +20,7 @@ import id.rla.silungkangplayground.presentation.util.showToast
 
 
 @AndroidEntryPoint
-class MemberHistoryFragment : BindingFragment<FragmentMemberHistoryBinding>(){
+class VoucherHistoryFragment : BindingFragment<FragmentVoucherHistoryBinding>(){
 
     private val viewModel:MemberHistoryViewModel by viewModels()
     private val adapter = MemberHistoryAdapter()
@@ -29,8 +28,8 @@ class MemberHistoryFragment : BindingFragment<FragmentMemberHistoryBinding>(){
     override fun onCreateBinding(
         layoutInflater: LayoutInflater,
         container: ViewGroup?
-    ): FragmentMemberHistoryBinding {
-        return FragmentMemberHistoryBinding.inflate(
+    ): FragmentVoucherHistoryBinding {
+        return FragmentVoucherHistoryBinding.inflate(
             layoutInflater,
             container,
             false

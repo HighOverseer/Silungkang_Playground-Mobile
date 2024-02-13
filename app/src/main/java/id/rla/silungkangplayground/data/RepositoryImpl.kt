@@ -11,6 +11,8 @@ import id.rla.silungkangplayground.domain.data.UserPreference
 import id.rla.silungkangplayground.domain.helper.Mapper
 import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
+import id.rla.silungkangplayground.data.helper.QrCodeGenerator
+import id.rla.silungkangplayground.domain.model.CardMember
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.NonCancellable
@@ -24,7 +26,8 @@ import javax.inject.Singleton
 @Singleton
 class RepositoryImpl @Inject constructor(
     private val apiService: ApiService,
-    private val userPreference: UserPreference
+    private val userPreference: UserPreference,
+    private val qrCodeGenerator: QrCodeGenerator
 ):Repository {
 
 /*
@@ -109,12 +112,15 @@ class RepositoryImpl @Inject constructor(
             },
             executeSuspend = {
                 withContext(NonCancellable){
-                    if (token.isNullOrBlank()) throw Exception("Token not found..")
+
+                    val token = data?.token ?: throw Exception("Token not found..")
+                    val phoneId = data.phoneId ?: throw Exception("Token not found..")
 
                     listOf(
                         launch { userPreference.saveToken(token) },
-                        launch { userPreference.savePhoneNumber(phoneNumber) }
+                        launch { userPreference.savePhoneId(phoneId) }
                     ).joinAll()
+
                 }
 
             },
@@ -128,12 +134,12 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getDetailMemberVoucher(): Resource<MemberVoucherInfo> {
          return fetchData(
              fetch = {
-                 val memberId = userPreference.getPhoneNumber()
-                 apiService.getMemberVoucherInfo(memberId)
+                 val phoneId = userPreference.getPhoneId()
+                 apiService.getMemberVoucherInfo(phoneId)
              },
              mapData = {
                  Mapper.mapMemberVoucherInfoDtoToDomain(
-                     this
+                     this.data
                  )
              }
          )
@@ -143,11 +149,23 @@ class RepositoryImpl @Inject constructor(
     override suspend fun getMemberHistory(): Resource<List<MemberHistoryItem>>{
         return fetchData(
             fetch = {
-                val memberId = userPreference.getPhoneNumber()
-                apiService.getMemberHistory(memberId)
+                val phoneId = userPreference.getPhoneId()
+                apiService.getMemberHistory(phoneId)
             },
             mapData = {
-                Mapper.mapMemberHistoryDtoToDomain(this)
+                Mapper.mapMemberHistoryDtoToDomain(this.data)
+            }
+        )
+    }
+
+    override suspend fun getCardMember(): Resource<List<CardMember>> {
+        return fetchData(
+            fetch = {
+                val phoneId = userPreference.getPhoneId()
+                apiService.getCardMember(phoneId)
+            },
+            mapData = {
+                Mapper.mapCardMemberDtoToDomain(qrCodeGenerator, data)
             }
         )
     }

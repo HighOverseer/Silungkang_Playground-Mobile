@@ -4,17 +4,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".presentation.feature.mainpage.fragment.voucher.MemberHistoryFragment">
+    tools:context=".presentation.feature.mainpage.fragment.card_member.CardMemberFragment">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rv_voucher_history"
+        android:id="@+id/rv_card_member"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingVertical="16dp"
         android:clipToPadding="false"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:paddingHorizontal="20dp"
-        tools:listitem="@layout/item_voucher_history"/>
+        tools:listitem="@layout/item_card_member"/>
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/actv_empty_info"
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="gone"
-        android:text="@string/riwayat_kosong"
+        android:text="@string/tidak_kartu_member_yang_ditemukan"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
