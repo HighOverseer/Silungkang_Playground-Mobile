@@ -2,16 +2,21 @@ package id.rla.silungkangplayground.domain.helper
 
 import id.rla.silungkangplayground.data.helper.QrCodeGenerator
 import id.rla.silungkangplayground.data.remote.dto.CardMemberDto
+import id.rla.silungkangplayground.data.remote.dto.MemberAccountDto
+import id.rla.silungkangplayground.data.remote.dto.OfferedVoucherDto
 import id.rla.silungkangplayground.data.remote.dto.VoucherHistoryDto
 import id.rla.silungkangplayground.data.remote.dto.VoucherInfoDto
 import id.rla.silungkangplayground.domain.common.Constants.PATTERN_DATE_DOMAIN
 import id.rla.silungkangplayground.domain.common.Constants.PATTERN_DATE_RESPONSE
 import id.rla.silungkangplayground.domain.model.CardMember
+import id.rla.silungkangplayground.domain.model.MemberAccount
 import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
+import id.rla.silungkangplayground.domain.model.OfferedVoucher
 import id.rla.silungkangplayground.domain.model.Voucher
 import id.rla.silungkangplayground.domain.model.VoucherType
 import id.rla.silungkangplayground.presentation.util.getCurrentDate
+import id.rla.silungkangplayground.presentation.util.getCurrentDateInString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ensureActive
 import kotlinx.coroutines.withContext
@@ -46,14 +51,22 @@ object Mapper {
         val listVoucherValue = voucherType.split(",").map {
             ensureActive() //check if coroutine are not cancelled
 
-            val valueWithoutPeriod = it.split(".").onEach {  }.first()
+            val valueWithoutPeriod = it.split(".").first()
 
 
             StringBuilder(valueWithoutPeriod).insert(3, ".").toString()
         }
+
         val listVoucherTarget = voucherTarget.split(",")
 
-        val listVoucherExpiredDate = voucherExpiredDate.split(",")
+        val formatDateResponse = SimpleDateFormat(PATTERN_DATE_RESPONSE, Locale.getDefault())
+        val formatDateDomain = SimpleDateFormat(PATTERN_DATE_DOMAIN, Locale.getDefault())
+        val listVoucherExpiredDate = voucherExpiredDate.split(",").map {
+            ensureActive()
+
+            val date = formatDateResponse.parse(it)?: getCurrentDate()
+            formatDateDomain.format(date)
+        }
 
         val isAllListHasSameLength = listOf(listVoucherValue, listVoucherTarget, listVoucherExpiredDate).distinct().size == 1
         if (isAllListHasSameLength) return@withContext emptyList()
@@ -123,13 +136,55 @@ object Mapper {
                 val qrCodeBitmap = qrCodeGenerator.generate(it.memberId)
 
                 CardMember(
-                    it.memberId,
-                    qrCodeBitmap,
-                    it.memberName
+                    MemberAccount(
+                        it.memberId,
+                        it.memberName
+                    ),
+                    qrCodeBitmap
                 )
             }
         }
 
+    }
+
+    suspend fun mapMemberAccountDtoToDomain(
+        list: List<MemberAccountDto>?,
+    ):List<MemberAccount>{
+        return withContext(Dispatchers.Default){
+            if (list.isNullOrEmpty()) throw Exception("Maaf, terjadi kesalahan..")
+
+            list.map {
+                ensureActive()
+
+                MemberAccount(
+                    it.memberId ?: "",
+                    it.memberName ?:""
+                )
+            }
+        }
+    }
+
+    suspend fun mapOfferedVoucherDtoToDomain(
+        list:List<OfferedVoucherDto>?
+    ):List<OfferedVoucher>{
+        return withContext(Dispatchers.Default){
+            if (list.isNullOrEmpty()) return@withContext emptyList()
+
+
+            list.map {
+                val voucherType = VoucherType.mapByCode[it.voucherTarget] ?: return@withContext emptyList()
+                val valueWithoutPeriod = it.hargaRupiah?.split(".")?.first()?.run {
+                    StringBuilder(this).insert(3, ".").toString()
+                } ?: return@withContext emptyList()
+
+                OfferedVoucher(
+                    typeId = it.id ?: return@withContext emptyList(),
+                    value = valueWithoutPeriod,
+                    costPoint = it.hargaPoint?.toString() ?: "0",
+                    type = voucherType
+                )
+            }
+        }
     }
 
 

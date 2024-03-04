@@ -11,7 +11,7 @@ import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.vouche
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.FragmentVoucherHistoryBinding
 import id.rla.silungkangplayground.presentation.customview.BindingFragment
-import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.MemberHistoryAdapter
+import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.VoucherHistoryAdapter
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.MemberHistoryViewModel
 import id.rla.silungkangplayground.presentation.util.UIEvent
 import id.rla.silungkangplayground.presentation.util.collectChannelFlowOnLifecycleStarted
@@ -23,7 +23,6 @@ import id.rla.silungkangplayground.presentation.util.showToast
 class VoucherHistoryFragment : BindingFragment<FragmentVoucherHistoryBinding>(){
 
     private val viewModel:MemberHistoryViewModel by viewModels()
-    private val adapter = MemberHistoryAdapter()
 
     override fun onCreateBinding(
         layoutInflater: LayoutInflater,
@@ -40,8 +39,8 @@ class VoucherHistoryFragment : BindingFragment<FragmentVoucherHistoryBinding>(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initNavigation()
-        initObserver()
         viewModel.fetchDataPeriodically(viewLifecycleOwner)
+        initObserver()
     }
 
     private fun initNavigation() {
@@ -53,16 +52,17 @@ class VoucherHistoryFragment : BindingFragment<FragmentVoucherHistoryBinding>(){
 
     private fun initObserver(){
         binding?.apply {
+
             viewLifecycleOwner.collectLatestOnLifeCycleStarted(viewModel.uiState){ uiState ->
-                if (rvVoucherHistory.adapter == null) rvVoucherHistory.adapter = adapter
 
-                adapter.submitList(uiState.listMemberHistory)
-
-                actvEmptyInfo.isVisible = uiState.listMemberHistory.isEmpty()
-
+                rvVoucherHistory.swapAdapter(
+                    VoucherHistoryAdapter(uiState.listMemberHistory),
+                    false
+                )
+                actvEmptyInfo.isVisible = uiState.listMemberHistory.isEmpty() && !uiState.isLoading
                 progressBar.isVisible = uiState.isLoading
-
             }
+
 
             viewLifecycleOwner.collectChannelFlowOnLifecycleStarted(viewModel.uiEvent){ uiEvent ->
                 if (uiEvent is UIEvent.ToastMessageEvent) requireActivity().showToast(uiEvent.message)

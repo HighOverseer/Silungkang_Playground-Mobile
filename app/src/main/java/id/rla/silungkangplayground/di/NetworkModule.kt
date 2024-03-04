@@ -1,6 +1,7 @@
 package id.rla.silungkangplayground.di
 
 import android.content.Context
+import com.google.gson.Gson
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -35,4 +36,7 @@ class NetworkModule{
             .build()
             .create(ApiService::class.java)
     }
+
+    @Provides
+    fun provideGson():Gson = Gson()
 }

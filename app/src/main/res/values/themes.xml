@@ -1,13 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Base application theme. -->
-    <style name="Base.Theme.SilungkangPlaygroundMobile" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.SilungkangPlaygroundMobile" parent="Theme.Material3.Light.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
-    <style name="Theme.SilungkangPlaygroundMobile" parent="Base.Theme.SilungkangPlaygroundMobile" />
+    <style name="Theme.SilungkangPlaygroundMobile" parent="Base.Theme.SilungkangPlaygroundMobile"/>
+
+    <style name="Theme.Starting" parent="Theme.SplashScreen">
+        <item name="windowSplashScreenBackground">@color/white</item>
+        <item name="windowSplashScreenAnimatedIcon">@drawable/ic_splash_foreground</item>
+        <item name="postSplashScreenTheme">@style/Theme.SilungkangPlaygroundMobile</item>
+    </style>
 
 
 <!--TextView-->
@@ -176,6 +181,10 @@
         <item name="android:textSize">8sp</item>
     </style>
 
+    <style name="TextView.White.10sp">
+        <item name="android:textSize">10sp</item>
+    </style>
+
     <style name="TextView.White.12sp.Bold">
         <item name="android:fontFamily">@font/inter_bold</item>
     </style>
@@ -189,6 +198,10 @@
     </style>
 
     <style name="TextView.White.8sp.Medium">
+        <item name="android:fontFamily">@font/inter_medium</item>
+    </style>
+
+    <style name="TextView.White.10sp.Medium">
         <item name="android:fontFamily">@font/inter_medium</item>
     </style>
 
@@ -369,6 +382,10 @@
 
     <style name="TextView.Black.12sp.Light">
         <item name="android:fontFamily">@font/inter_light</item>
+    </style>
+
+    <style name="TextView.Black.12sp.Medium">
+        <item name="android:fontFamily">@font/inter_medium</item>
     </style>
 
     <style name="TextView.Black.11sp.Medium">

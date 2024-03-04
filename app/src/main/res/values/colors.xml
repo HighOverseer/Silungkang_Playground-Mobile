@@ -36,6 +36,7 @@
     <color name="green_200">#D8FFD3</color>
 
     <color name="white_05">#FFFFFF</color>
+    <color name="white_15">#FDFDFD</color>
     <color name="black_250">#555555</color>
     <color name="grey_400">#595959</color>
     <color name="grey_450">#E0E0E0</color>
@@ -51,6 +52,7 @@
 
 
     <color name="purple">#F3E9F6</color>
+    <color name="purple_200">#EEDFFD</color>
     <color name="purple_50">#EEDDFF </color>
     <color name="purple_100">#6D3393</color>
 

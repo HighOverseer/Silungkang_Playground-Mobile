@@ -12,8 +12,8 @@
         android:layout_height="match_parent"
         android:paddingVertical="16dp"
         android:clipToPadding="false"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:paddingHorizontal="20dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         tools:listitem="@layout/item_voucher_history"/>
 
     <androidx.appcompat.widget.AppCompatTextView

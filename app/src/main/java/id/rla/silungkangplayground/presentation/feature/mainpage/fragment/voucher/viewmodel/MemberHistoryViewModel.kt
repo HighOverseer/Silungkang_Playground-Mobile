@@ -8,6 +8,7 @@ import androidx.lifecycle.repeatOnLifecycle
 import dagger.hilt.android.lifecycle.HiltViewModel
 import id.rla.silungkangplayground.domain.common.DynamicString
 import id.rla.silungkangplayground.domain.common.Resource
+import id.rla.silungkangplayground.domain.common.StringRes
 import id.rla.silungkangplayground.domain.usecase.GetMemberHistoryUseCase
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.uistate.MemberHistoryUiState
 import id.rla.silungkangplayground.presentation.util.UIEvent
@@ -45,7 +46,7 @@ class MemberHistoryViewModel @Inject constructor(
                 )
             }
 
-            is Resource.Failure -> {
+            is Resource.Failure-> {
                 _uiState.update {
                     it.copy(
                         isLoading = false

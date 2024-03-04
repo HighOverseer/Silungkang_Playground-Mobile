@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mcv_point_exchange"
+    android:layout_width="173dp"
+    android:layout_height="115dp"
+    android:layout_marginEnd="4dp"
+    app:cardBackgroundColor="@color/purple_50"
+    app:cardCornerRadius="2dp"
+    app:layout_constraintEnd_toStartOf="@id/guideline3"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/actv_point_exchange_info"
+    app:strokeWidth="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/actv_voucher_tag"
+            style="@style/TextView.White.10sp.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/voucher_tag_bg"
+            android:paddingStart="14dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="8dp"
+            android:paddingBottom="5dp"
+            android:text="@string/voucher"
+            android:textColor="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/actv_voucher_value"
+            style="@style/TextView.Purple100.26sp.IstokBold"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:layout_marginTop="5dp"
+            android:text="@string/_100_000"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actv_voucher_tag" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/actv_exchange_poin_info"
+            style="@style/TextView.Grey350.10sp.Medium"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="-8dp"
+            app:layout_constraintStart_toStartOf="@id/actv_voucher_value"
+            app:layout_constraintTop_toBottomOf="@id/actv_voucher_value"
+            tools:text="Playground - 15 point" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/acb_exchange_button1"
+            style="@style/Button.10sp.Medium"
+            android:layout_width="0dp"
+            android:layout_height="31dp"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/tukar"
+            app:layout_constraintBottom_toBottomOf="@id/aciv_bg"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actv_exchange_poin_info" />
+
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/aciv_bg"
+            android:layout_width="85dp"
+            android:layout_height="0dp"
+            android:layout_marginStart="-26dp"
+            android:layout_marginTop="-20dp"
+            android:alpha="0.5"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/actv_voucher_value"
+            app:srcCompat="@drawable/ic_voucher_exchange" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline10"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</com.google.android.material.card.MaterialCardView>

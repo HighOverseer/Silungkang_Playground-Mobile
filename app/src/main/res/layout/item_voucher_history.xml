@@ -29,6 +29,7 @@
         android:id="@+id/actv_information"
         style="@style/MemberHistoryTableColumnInformation"
         android:layout_width="0dp"
+        android:inputType="textNoSuggestions|textMultiLine"
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@id/guideline5"

@@ -36,7 +36,7 @@
     <string name="poin_anda_berhasil_ditukar_dengan_nvoucher_nikmati_berbelanja_di_nsilungkang_playground">Poin anda berhasil ditukar dengan\nvoucher. Nikmati berbelanja di\nSilungkang Playground.</string>
     <string name="ok">OK</string>
     <string name="dapatkan_poin_setiap_kali_bermain_di_nsilungkang_playground_terima_kasih">Dapatkan poin setiap kali bermain di\nSilungkang Playground. Terima kasih.</string>
-    <string name="bagaimana_pengalaman_di_nplayground_hari_ini">Bagaimana pengalaman di\nPlayground hari ini?</string>
+    <string name="bagaimana_pengalaman_di_nplayground_hari_ini">Bagaimana pengalaman\nkunjungan terkahir Anda di Silungkang Playground?</string>
     <string name="submit">Submit</string>
     <string name="kritik_dan_saran">Kritik dan saran :</string>
     <string name="riwayat"><u>Riwayat</u></string>
@@ -71,4 +71,14 @@
     <string name="nomor_hp">Nomor Hp</string>
     <string name="kartu_member">Kartu Member</string>
     <string name="tidak_kartu_member_yang_ditemukan">Tidak kartu member yang ditemukan..</string>
+    <string name="exchange_point_info_format">%1$s - %2$s point</string>
+    <string name="logout">Logout</string>
+    <string name="anda_telah_logout">Anda Telah Logout..</string>
+    <string name="maaf_terjadi_kesalahan">Maaf, Terjadi Kesalahan..</string>
+    <string name="anda_sekarang_login_sebagai">Anda sekarang login sebagai %1$s</string>
+    <string name="apakah_anda_yakin_ingin_menukar_point_dengan_voucher_terpilih">Yakin ingin menukar\npoint dengan\nvoucher terpilih?</string>
+    <string name="batal">Batal</string>
+    <string name="ya">Ya</string>
+    <string name="terima_kasih">Terima Kasih!</string>
+    <string name="feedback_anda_sangat_membantu_kami_nuntuk_dapat_terus_meningkatkan_nlayanan_kami">Feedback anda sangat membantu kami\nuntuk dapat terus meningkatkan\nlayanan kami.</string>
 </resources>

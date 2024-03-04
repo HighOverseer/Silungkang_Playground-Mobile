@@ -15,7 +15,7 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "BASE_URL", "\"http://45.45.45.226/playground/\"")
+        buildConfigField("String", "BASE_URL", "\"http://192.168.20.242/playground/\"")
 
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -61,8 +61,8 @@ dependencies {
     implementation ("com.github.bumptech.glide:glide:4.11.0")
     implementation("de.hdodenhof:circleimageview:3.1.0")
 
-    implementation("androidx.navigation:navigation-fragment-ktx:2.7.6")
-    implementation("androidx.navigation:navigation-ui-ktx:2.7.6")
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
 
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -81,4 +81,6 @@ dependencies {
     implementation ("com.google.zxing:core:3.4.1")
     implementation ("com.journeyapps:zxing-android-embedded:4.2.0")
     //kapt ("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

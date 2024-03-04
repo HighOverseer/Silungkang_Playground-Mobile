@@ -8,13 +8,18 @@ import android.view.ViewGroup
 import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.databinding.FragmentVoucherBinding
+import id.rla.silungkangplayground.domain.usecase.SendFeedbackUseCase
 import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.ActiveVoucherAdapter
 import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.ActiveVoucherItemDecoration
 import id.rla.silungkangplayground.presentation.customview.BindingFragment
 import id.rla.silungkangplayground.presentation.feature.feedback.FeedbackDialogFragment
+import id.rla.silungkangplayground.presentation.feature.feedback.OnSendFeedbackListener
+import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.GenericItemDecoration
+import id.rla.silungkangplayground.presentation.feature.mainpage.adapter.OfferedVouchersAdapter
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.util.OnProcessingVoucherExchangeListener
 import id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.viewmodel.VoucherViewModel
 import id.rla.silungkangplayground.presentation.util.UIEvent
@@ -26,7 +31,7 @@ import kotlin.random.Random
 
 @AndroidEntryPoint
 class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
-    OnProcessingVoucherExchangeListener {
+    OnProcessingVoucherExchangeListener{
 
     private val viewModel: VoucherViewModel by viewModels()
 
@@ -47,10 +52,6 @@ class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
         initButtons()
         initObserver()
 
-
-        Random.nextInt(1, 4).also {
-            if (it % 2 == 0) showReviewDialogFragment()
-        }
     }
 
     private fun initObserver() {
@@ -60,37 +61,46 @@ class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
                     memberVoucherInfo?.apply {
                         actvEmptyInfo.isVisible = listVoucher.isEmpty()
 
-                        val adapter = ActiveVoucherAdapter(listVoucher)
-                        rvActiveVoucher.adapter = adapter
+                        rvActiveVoucher.swapAdapter(
+                            ActiveVoucherAdapter(listVoucher),
+                            false
+                        )
 
                         actvActiveVoucherCount.text = activeVoucherCount.toString()
                         actvPointCount.text = point
                     }
 
-                    progressBar.isVisible = isLoading
+                    progressBar.isVisible = isLoadingDetailUser || isLoadingOfferedVouchers
+
+                    val offeredVouchers = if (isLoadingOfferedVouchers) emptyList() else uiState.offeredVouchers
+                    rvVoucherExchangeOption.adapter =  OfferedVouchersAdapter(
+                        offeredVouchers,
+                        onItemClicked = { showExchangePointConfirmationDialog(it.typeId) }
+                    )
+                    /*rvVoucherExchangeOption.swapAdapter(
+                        OfferedVouchersAdapter(offeredVouchers, onItemClicked = { showExchangePointConfirmationDialog(it.typeId) }),
+                        true,
+                    )*/
                 }
             }
         }
 
         viewLifecycleOwner.collectChannelFlowOnLifecycleStarted(viewModel.uiEvent){ uiEvent ->
-            if (uiEvent is UIEvent.ToastMessageEvent) requireActivity().showToast(uiEvent.message)
+            when(uiEvent) {
+                is UIEvent.ToastMessageEvent -> requireActivity().showToast(uiEvent.message)
+                is UIEvent.OnExchangePointSuccess -> showExchangeSuccessDialog()
+                is UIEvent.OnExchangePointFailed -> showExchangeFailedDialog()
+
+                else -> Unit
+            }
         }
     }
 
 
-    private fun showReviewDialogFragment(){
-        val fragment = FeedbackDialogFragment()
-        fragment.show(childFragmentManager, null)
-    }
+
 
     private fun initButtons() {
         binding?.apply {
-            val exchangePointButtonListener = View.OnClickListener {
-                showVoucherOptionDialog()
-            }
-            acbExchangeButton1.setOnClickListener(exchangePointButtonListener)
-            acbExchangeButton2.setOnClickListener(exchangePointButtonListener)
-
             actvHistory.setOnClickListener {
                 view?.findNavController()?.navigate(
                     R.id.action_menu_voucher_to_memberHistoryFragment
@@ -100,16 +110,25 @@ class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
         }
     }
 
-    private fun showVoucherOptionDialog() {
-        val voucherOptionDialogFragment = VoucherOptionDialogFragment()
-        voucherOptionDialogFragment.show(childFragmentManager, null)
+    private fun showExchangePointConfirmationDialog(voucherTypeId:Int) {
+        val exchangePointConfirmationDialogFragment = ExchangePointConfirmationDialogFragment()
+        exchangePointConfirmationDialogFragment.setVoucherTypeId(voucherTypeId)
+        exchangePointConfirmationDialogFragment.show(childFragmentManager, null)
     }
 
     private fun initRvAdapter() {
         binding?.apply {
-            viewModel.fetchDataPeriodically(viewLifecycleOwner)
-            /*val adapter = ActiveVoucherAdapter(Dummy.getVouchers())
-            rvActiveVoucher.adapter = adapter*/
+            rvVoucherExchangeOption.layoutManager = LinearLayoutManager(
+                requireActivity(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            rvVoucherExchangeOption.addItemDecoration(
+                GenericItemDecoration(
+                    resources.displayMetrics,
+                    paddingEnd = 8
+                )
+            )
             rvActiveVoucher.addItemDecoration(
                 ActiveVoucherItemDecoration(
                     RV_VOUCHER_SEPARATOR_MARGIN
@@ -117,20 +136,13 @@ class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
                         .toInt()
                 )
             )
+            viewModel.updateDetailMemberPeriodically(viewLifecycleOwner)
+            viewModel.updateOfferedVouchersPeriodically(viewLifecycleOwner)
         }
     }
 
-    override fun onProcess() {
-        binding?.apply {
-            progressBar.isVisible = true
-            Random.nextInt(1,3).also {
-                print(it)
-                if (it % 2 == 1){
-                    showExchangeSuccessDialog()
-                }else showExchangeFailedDialog()
-            }
-
-        }
+    override fun onProcessExchange(voucherTypeId: Int) {
+        viewModel.exchangePoint(voucherTypeId)
     }
 
 
@@ -145,7 +157,6 @@ class VoucherFragment : BindingFragment<FragmentVoucherBinding>(),
         val fragment = ExchangeFailedDialogFragment()
         fragment.show(childFragmentManager, null)
     }
-
 
     private fun Float.toDp():Float{
         return TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, this, resources.displayMetrics)

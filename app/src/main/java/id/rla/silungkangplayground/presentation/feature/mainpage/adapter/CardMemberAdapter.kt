@@ -18,7 +18,7 @@ class CardMemberAdapter(
         fun bind(item:CardMember){
             binding.apply {
                 acivQrCode.loadImage(item.bitmap)
-                actvName.text = item.owner
+                actvName.text = item.memberAccount.name
             }
         }
     }

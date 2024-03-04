@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:contentPaddingTop="20dp"
+    app:contentPaddingBottom="20dp"
+    app:strokeWidth="0dp"
+    app:cardCornerRadius="20dp"
+    app:contentPaddingLeft="46dp"
+    app:cardBackgroundColor="@color/white"
+    app:contentPaddingRight="46dp"
+    tools:context=".presentation.feature.mainpage.fragment.voucher.ExchangePointConfirmationDialogFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <androidx.appcompat.widget.AppCompatTextView
+            style="@style/TextView.Black.14sp.SemiBold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/apakah_anda_yakin_ingin_menukar_point_dengan_voucher_terpilih"
+            app:layout_constraintTop_toTopOf="parent"
+            android:textAlignment="center"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:gravity="center"
+            android:dividerPadding="21dp"
+            android:orientation="horizontal">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acb_cancel"
+                style="@style/Button.12sp.Medium"
+                android:layout_width="67dp"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:layout_marginEnd="21dp"
+                android:text="@string/batal"
+                />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/acb_yes"
+                style="@style/Button.12sp.Medium"
+                android:layout_width="67dp"
+                android:layout_height="37dp"
+                android:layout_gravity="center"
+                android:text="@string/ya" />
+
+        </LinearLayout>
+
+
+
+
+
+
+
+    </LinearLayout>
+
+
+
+</com.google.android.material.card.MaterialCardView>

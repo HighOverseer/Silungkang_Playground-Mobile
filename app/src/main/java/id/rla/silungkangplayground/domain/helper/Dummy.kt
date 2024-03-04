@@ -1,7 +1,6 @@
 package id.rla.silungkangplayground.domain.helper
 
-import android.content.Context
-import id.rla.silungkangplayground.domain.model.CardMember
+import id.rla.silungkangplayground.BuildConfig
 import id.rla.silungkangplayground.domain.model.EventPlayground
 import id.rla.silungkangplayground.domain.model.OperationalHours
 import id.rla.silungkangplayground.domain.model.PlaygroundModel
@@ -9,14 +8,8 @@ import id.rla.silungkangplayground.domain.model.TicketDayPrice
 import id.rla.silungkangplayground.domain.model.TicketInfo
 import id.rla.silungkangplayground.domain.model.Voucher
 import id.rla.silungkangplayground.domain.model.MemberHistoryItem
+import id.rla.silungkangplayground.domain.model.OfferedVoucher
 import id.rla.silungkangplayground.domain.model.VoucherType
-import id.rla.silungkangplayground.presentation.util.generateQrCode
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
-import kotlinx.coroutines.joinAll
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 object Dummy {
 
@@ -37,6 +30,29 @@ object Dummy {
             }
 
         }
+    }
+
+    fun getVoucherExchangeOption():List<OfferedVoucher>{
+        return listOf(
+            OfferedVoucher(
+                1,
+                "100.000",
+                "15",
+                VoucherType.PLAYGROUND
+            ),
+            OfferedVoucher(
+                2,
+                "250.000",
+                "30",
+                VoucherType.PLAYGROUND
+            ),
+            OfferedVoucher(
+                3,
+                "100.000",
+                "15",
+                VoucherType.CAFE
+            )
+        )
     }
 
 /*    suspend fun getCardMember(applicationContext: Context):List<CardMember>{
@@ -90,9 +106,9 @@ object Dummy {
 
     fun getListEventSlider():List<String>{
         return listOf(
-            "https://s3-alpha-sig.figma.com/img/7987/8d2b/86fd8f01386c39c920f0065dccf28ed8?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TjsjknSP03Fcf8y1iiPPiG1uZftt8UfvrcoIM1ABO2IJo6oN-F0k3O4lYvcLlJWTq1wsHv021KsmJeImFG5vL8HbtqN2p0TD5JgwdqudhjS86RdMG2-Z17sLNL4ZXwr2EYjLKCjFmuUQVueJ5cDakNWQnwliB9o5TLrptkzGIB1woCHTUXBTPL2S1n2vf-yXIjLAT6gADRCnw6X8iwjwD~tkRvUQWEP0VeZ5ufZbchbvCypvn4lvjBJsHJpQ81IcpICUJqB4wDkDRJ3pOjrHD7IB6co5vCg0~U1TsUmnJtIACKn9DFOwEOV0NeL3T4FekPo0A6CUMr8i-HvdCMaTgQ__",
-            "https://s3-alpha-sig.figma.com/img/7987/8d2b/86fd8f01386c39c920f0065dccf28ed8?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TjsjknSP03Fcf8y1iiPPiG1uZftt8UfvrcoIM1ABO2IJo6oN-F0k3O4lYvcLlJWTq1wsHv021KsmJeImFG5vL8HbtqN2p0TD5JgwdqudhjS86RdMG2-Z17sLNL4ZXwr2EYjLKCjFmuUQVueJ5cDakNWQnwliB9o5TLrptkzGIB1woCHTUXBTPL2S1n2vf-yXIjLAT6gADRCnw6X8iwjwD~tkRvUQWEP0VeZ5ufZbchbvCypvn4lvjBJsHJpQ81IcpICUJqB4wDkDRJ3pOjrHD7IB6co5vCg0~U1TsUmnJtIACKn9DFOwEOV0NeL3T4FekPo0A6CUMr8i-HvdCMaTgQ__",
-            "https://s3-alpha-sig.figma.com/img/7987/8d2b/86fd8f01386c39c920f0065dccf28ed8?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TjsjknSP03Fcf8y1iiPPiG1uZftt8UfvrcoIM1ABO2IJo6oN-F0k3O4lYvcLlJWTq1wsHv021KsmJeImFG5vL8HbtqN2p0TD5JgwdqudhjS86RdMG2-Z17sLNL4ZXwr2EYjLKCjFmuUQVueJ5cDakNWQnwliB9o5TLrptkzGIB1woCHTUXBTPL2S1n2vf-yXIjLAT6gADRCnw6X8iwjwD~tkRvUQWEP0VeZ5ufZbchbvCypvn4lvjBJsHJpQ81IcpICUJqB4wDkDRJ3pOjrHD7IB6co5vCg0~U1TsUmnJtIACKn9DFOwEOV0NeL3T4FekPo0A6CUMr8i-HvdCMaTgQ__"
+            "${BuildConfig.BASE_URL}view/assets/images/Tahfidz.png",
+            "${BuildConfig.BASE_URL}view/assets/images/Tahfidz.png",
+            "${BuildConfig.BASE_URL}view/assets/images/Tahfidz.png",
         )
     }
 
@@ -100,7 +116,7 @@ object Dummy {
         return List(5){
             EventPlayground(
                 "Tahfiz Untuk Anak",
-                "https://s3-alpha-sig.figma.com/img/7987/8d2b/86fd8f01386c39c920f0065dccf28ed8?Expires=1707696000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=TjsjknSP03Fcf8y1iiPPiG1uZftt8UfvrcoIM1ABO2IJo6oN-F0k3O4lYvcLlJWTq1wsHv021KsmJeImFG5vL8HbtqN2p0TD5JgwdqudhjS86RdMG2-Z17sLNL4ZXwr2EYjLKCjFmuUQVueJ5cDakNWQnwliB9o5TLrptkzGIB1woCHTUXBTPL2S1n2vf-yXIjLAT6gADRCnw6X8iwjwD~tkRvUQWEP0VeZ5ufZbchbvCypvn4lvjBJsHJpQ81IcpICUJqB4wDkDRJ3pOjrHD7IB6co5vCg0~U1TsUmnJtIACKn9DFOwEOV0NeL3T4FekPo0A6CUMr8i-HvdCMaTgQ__",
+                "${BuildConfig.BASE_URL}view/assets/images/Tahfidz.png",
                 "24/01/2024",
                 "14:00"
             )

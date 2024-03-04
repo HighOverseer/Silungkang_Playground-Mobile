@@ -1,5 +1,5 @@
 package id.rla.silungkangplayground.presentation.feature.mainpage.fragment.voucher.util
 
 interface OnProcessingVoucherExchangeListener {
-    fun onProcess()
+    fun onProcessExchange(voucherTypeId:Int)
 }

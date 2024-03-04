@@ -8,7 +8,9 @@ import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import id.rla.silungkangplayground.domain.data.UserPreference
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -54,10 +56,36 @@ class UserPreferenceImpl @Inject constructor(
         }
     }
 
+    override fun getCurrentMemberId(): Flow<String> {
+        return dataStore.data.map { prefs ->
+            prefs[CURRENT_MEMBER_ID] ?: ""
+        }
+    }
+
+
+    override suspend fun saveCurrentMemberId(memberId:String) {
+        dataStore.edit { preferences ->
+            preferences[CURRENT_MEMBER_ID] = memberId
+        }
+    }
+
+    override suspend fun resetCurrentMemberId() {
+        dataStore.edit { preferences ->
+            preferences[CURRENT_MEMBER_ID] = ""
+        }
+    }
+
+    override fun isUserHasAlreadyLoggedIn(): Flow<Boolean> {
+        return dataStore.data.map { prefs ->
+            !prefs[TOKEN_KEY].isNullOrBlank() && prefs[PHONE_ID_KEY] != -1 && !prefs[CURRENT_MEMBER_ID].isNullOrBlank()
+        }
+    }
+
     companion object{
         const val DATA_STORE_NAME = "user"
 
         private val TOKEN_KEY = stringPreferencesKey("token")
         private val PHONE_ID_KEY = intPreferencesKey("phone_id")
+        private val CURRENT_MEMBER_ID = stringPreferencesKey("current_member_id")
     }
 }

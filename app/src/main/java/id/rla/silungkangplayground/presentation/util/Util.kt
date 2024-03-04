@@ -1,11 +1,15 @@
 package id.rla.silungkangplayground.presentation.util
 
+import android.app.Activity
 import android.content.Context
+import android.content.Intent
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Canvas
+import android.graphics.Rect
 import android.util.DisplayMetrics
 import android.util.TypedValue
+import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
@@ -31,6 +35,7 @@ import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import kotlin.math.roundToInt
 
 
 /*inline fun <reified T:ViewModel>ViewModelStoreOwner.obtainViewModel(applicationContext: Context):T{
@@ -45,6 +50,11 @@ fun Context.showToast(message:String){
 fun Context.showToast(stringRes: StringRes){
     return Toast.makeText(this, stringRes.getValue(this), Toast.LENGTH_SHORT).show()
 }
+
+fun Context.makeToast(stringRes: StringRes):Toast{
+    return Toast.makeText(this, stringRes.getValue(this), Toast.LENGTH_SHORT)
+}
+
 
 fun ImageView.loadImage(imageUrlOrUri: String) {
     Glide.with(context)
@@ -165,4 +175,20 @@ fun getBitmapFromVectorDrawable(context: Context, drawableId: Int): Bitmap? {
     drawable.setBounds(0, 0, canvas.width, canvas.height)
     drawable.draw(canvas)
     return bitmap
+}
+
+fun Context.convertDpToPx(dp: Float): Float {
+    return TypedValue.applyDimension(
+        TypedValue.COMPLEX_UNIT_DIP,
+        dp,
+        this.resources.displayMetrics
+    )
+}
+
+fun Activity.isKeyboardOpen(rootView:View):Boolean{
+    val visibleBounds = Rect()
+    rootView.getWindowVisibleDisplayFrame(visibleBounds)
+    val heighDiff = rootView.height - visibleBounds.height()
+    val marginOfError = this.convertDpToPx(50F).roundToInt()
+    return heighDiff > marginOfError
 }

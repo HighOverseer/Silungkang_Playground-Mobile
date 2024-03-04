@@ -15,10 +15,11 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 class ContextRelatedModule {
-    @Singleton
     @Provides
     fun provideDataStore(@ApplicationContext context: Context):DataStore<Preferences> = context.dataStore
     @Provides
     fun provideDisplayMetrics(@ApplicationContext context: Context):DisplayMetrics = context.resources.displayMetrics
+
+
 
 }

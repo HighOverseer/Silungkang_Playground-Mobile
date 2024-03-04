@@ -8,5 +8,11 @@ data class LoginDto(
 	val phoneId: Int? = null,
 
 	@field:SerializedName("token")
-	val token: String? = null
+	val token: String? = null,
+
+	@field:SerializedName("default_member_id")
+	val defaultMemberId:String? = null
+
+	/*@field:SerializedName("default_member")
+	val defaultMember:MemberAccountDto?*/
 )
