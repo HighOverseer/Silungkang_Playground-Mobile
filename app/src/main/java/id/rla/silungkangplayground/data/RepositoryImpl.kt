@@ -1,5 +1,10 @@
 package id.rla.silungkangplayground.data
 
+import androidx.paging.ExperimentalPagingApi
+import androidx.paging.Pager
+import androidx.paging.PagingConfig
+import androidx.paging.PagingData
+import androidx.paging.map
 import com.google.gson.Gson
 import id.rla.silungkangplayground.R
 import id.rla.silungkangplayground.data.remote.network.ApiService
@@ -11,9 +16,16 @@ import id.rla.silungkangplayground.domain.helper.Mapper
 import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
 import id.rla.silungkangplayground.data.helper.QrCodeGenerator
+import id.rla.silungkangplayground.data.local.EventDao
+import id.rla.silungkangplayground.data.local.EventDatabase
+import id.rla.silungkangplayground.data.local.EventEntity
+import id.rla.silungkangplayground.data.paging.EventRemoteMediator
+import id.rla.silungkangplayground.domain.common.Event
 import id.rla.silungkangplayground.domain.common.StaticString
+import id.rla.silungkangplayground.domain.data.Repository
 import id.rla.silungkangplayground.domain.model.CardMember
 import id.rla.silungkangplayground.domain.model.CekInData
+import id.rla.silungkangplayground.domain.model.EventPlayground
 import id.rla.silungkangplayground.domain.model.MemberAccount
 import id.rla.silungkangplayground.domain.model.OfferedVoucher
 import kotlinx.coroutines.Dispatchers
@@ -21,6 +33,7 @@ import kotlinx.coroutines.NonCancellable
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.job
 import kotlinx.coroutines.joinAll
 import kotlinx.coroutines.launch
@@ -35,6 +48,7 @@ class RepositoryImpl @Inject constructor(
     private val userPreference: UserPreference,
     private val qrCodeGenerator: QrCodeGenerator,
     private val gson: Gson,
+    private val database: EventDatabase
 ):BaseRepository(){
 
     override suspend fun login(phoneNumber: String, password: String): Resource<StringRes> {
@@ -178,7 +192,7 @@ class RepositoryImpl @Inject constructor(
             }
         )
     }
-    override fun isUserHasAlreadyLoggin(): Flow<Boolean> {
+    override fun isUserHasAlreadyLoggedIn(): Flow<Boolean> {
         return userPreference.isUserHasAlreadyLoggedIn()
     }
     override suspend fun sendFeedback(rating: Int, content: String): Resource<Boolean> {
@@ -192,5 +206,26 @@ class RepositoryImpl @Inject constructor(
                 Resource.Success(data ?: false)
             }
         )
+    }
+
+    @OptIn(ExperimentalPagingApi::class)
+    override fun getEventPlaygroundInPaging(): Flow<PagingData<EventPlayground>> {
+        return Pager(
+            config = PagingConfig(
+                pageSize = Repository.PAGING_PAGE_SIZE,
+                initialLoadSize = Repository.PAGING_PAGE_SIZE,
+                prefetchDistance = 5,
+                enablePlaceholders = true,
+                jumpThreshold = Repository.PAGING_PAGE_SIZE * 3
+            ),
+            remoteMediator = EventRemoteMediator(database, apiService),
+            pagingSourceFactory = {
+                database.eventDao().getAllEvent()
+            }
+        ).flow.map { pagingData ->
+            pagingData.map { eventEntity ->
+                Mapper.mapEventEntityToDomain(eventEntity)
+            }
+        }
     }
 }

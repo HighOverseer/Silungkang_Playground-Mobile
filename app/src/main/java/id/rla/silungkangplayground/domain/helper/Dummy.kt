@@ -115,10 +115,11 @@ object Dummy {
     fun getListEvent():List<EventPlayground>{
         return List(5){
             EventPlayground(
+                "-1",
                 "Tahfiz Untuk Anak",
                 "${BuildConfig.BASE_URL}view/assets/images/Tahfidz.png",
                 "24/01/2024",
-                "14:00"
+                "24/01/2024",
             )
         }
     }

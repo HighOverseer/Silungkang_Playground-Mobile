@@ -53,7 +53,7 @@
             android:layout_marginTop="2dp"
             app:layout_constraintTop_toBottomOf="@id/actv_title"
             app:layout_constraintStart_toStartOf="@id/actv_title"
-            tools:text="@string/tanggal_24_01_2024"/>
+            tools:text="@string/tanggal_awal"/>
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/actv_time"
@@ -62,7 +62,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/actv_date"
             app:layout_constraintStart_toStartOf="@id/actv_date"
-            tools:text="@string/jam_event"/>
+            tools:text="@string/tanggal_berakhir"/>
 
         <androidx.appcompat.widget.AppCompatButton
             style="@style/Button.10sp.Medium"

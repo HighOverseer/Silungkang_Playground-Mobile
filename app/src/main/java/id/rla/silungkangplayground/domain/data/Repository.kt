@@ -1,10 +1,11 @@
 package id.rla.silungkangplayground.domain.data
 
+import androidx.paging.PagingData
 import id.rla.silungkangplayground.domain.common.Resource
 import id.rla.silungkangplayground.domain.common.StringRes
 import id.rla.silungkangplayground.domain.model.CardMember
 import id.rla.silungkangplayground.domain.model.CekInData
-import id.rla.silungkangplayground.domain.model.MemberAccount
+import id.rla.silungkangplayground.domain.model.EventPlayground
 import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
 import id.rla.silungkangplayground.domain.model.OfferedVoucher
@@ -25,7 +26,12 @@ interface Repository {
     suspend fun changeCurrentMemberAccount(memberId:String)
     suspend fun getOfferedVouchers():Resource<List<OfferedVoucher>>
     suspend fun exchangePoint(voucherTypeId:Int):Resource<StringRes>
-    fun isUserHasAlreadyLoggin():Flow<Boolean>
+    fun isUserHasAlreadyLoggedIn():Flow<Boolean>
     suspend fun sendFeedback(rating:Int, content:String):Resource<Boolean>
+    fun getEventPlaygroundInPaging():Flow<PagingData<EventPlayground>>
+
+    companion object{
+        const val PAGING_PAGE_SIZE = 10
+    }
 
 }

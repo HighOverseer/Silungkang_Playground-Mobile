@@ -3,6 +3,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id ("kotlin-kapt")
     id ("dagger.hilt.android.plugin")
+    id ("com.google.devtools.ksp")
 }
 
 android {
@@ -15,7 +16,8 @@ android {
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
-        buildConfigField("String", "BASE_URL", "\"http://192.168.20.242/playground/\"")
+        buildConfigField("String", "BASE_URL", "\"http://45.45.45.188/playground/\"")
+
 
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
@@ -31,11 +33,12 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = "17"
+        freeCompilerArgs += listOf("-Xopt-in=kotlin.RequiresOptIn")
     }
 
     buildFeatures {
@@ -83,4 +86,12 @@ dependencies {
     //kapt ("org.jetbrains.kotlinx:kotlinx-metadata-jvm:0.5.0")
 
     implementation("androidx.core:core-splashscreen:1.0.1")
+
+    implementation("androidx.room:room-runtime:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+
+    implementation("androidx.room:room-paging:2.6.1")
+    implementation("androidx.paging:paging-runtime-ktx:3.2.1")
+    implementation( "androidx.paging:paging-common-ktx:3.2.1")
 }

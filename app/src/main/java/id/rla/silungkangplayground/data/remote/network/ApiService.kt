@@ -2,9 +2,9 @@ package id.rla.silungkangplayground.data.remote.network
 
 import id.rla.silungkangplayground.data.remote.dto.CardMemberDto
 import id.rla.silungkangplayground.data.remote.dto.CekInMemberDto
+import id.rla.silungkangplayground.data.remote.dto.EventDto
 import id.rla.silungkangplayground.data.remote.dto.ExchangePointDto
 import id.rla.silungkangplayground.data.remote.dto.LoginDto
-import id.rla.silungkangplayground.data.remote.dto.MemberAccountDto
 import id.rla.silungkangplayground.data.remote.dto.OfferedVoucherDto
 import id.rla.silungkangplayground.data.remote.dto.Response
 import id.rla.silungkangplayground.data.remote.dto.VoucherHistoryDto
@@ -12,7 +12,6 @@ import id.rla.silungkangplayground.data.remote.dto.VoucherInfoDto
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded
 import retrofit2.http.GET
-import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface ApiService {
@@ -82,6 +81,13 @@ interface ApiService {
         content: String
     ):Response<Boolean>
 
-
+    @FormUrlEncoded
+    @POST("spg/event/get")
+    suspend fun getEventPlaygroundInPaging(
+        @Field("page")
+        page:Int,
+        @Field("rows")
+        size:Int,
+    ):Response<List<EventDto>>
 
 }

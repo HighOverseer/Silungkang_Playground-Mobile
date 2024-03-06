@@ -48,8 +48,8 @@
     <string name="fasilitas">Fasilitas</string>
     <string name="wahana">Wahana</string>
     <string name="review">Review</string>
-    <string name="tanggal_24_01_2024">Tanggal\t\t: %1$s</string>
-    <string name="jam_event">Jam\t\t\t\t\t: %1$s WIB</string>
+    <string name="tanggal_awal">Tanggal Mulai\t\t\t: %1$s</string>
+    <string name="tanggal_berakhir">Tanggal Berakhir\t\t: %1$s</string>
     <string name="daftar">Daftar</string>
     <string name="playground_event">Playground Event</string>
     <string name="tahfiz_untuk_anak">Tahfiz untuk\nAnak</string>
@@ -81,4 +81,5 @@
     <string name="ya">Ya</string>
     <string name="terima_kasih">Terima Kasih!</string>
     <string name="feedback_anda_sangat_membantu_kami_nuntuk_dapat_terus_meningkatkan_nlayanan_kami">Feedback anda sangat membantu kami\nuntuk dapat terus meningkatkan\nlayanan kami.</string>
+    <string name="muat_lagi">Muat Lagi..</string>
 </resources>

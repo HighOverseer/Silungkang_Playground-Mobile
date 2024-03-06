@@ -20,8 +20,8 @@ class EventAdapter:ListAdapter<EventPlayground, RecyclerView.ViewHolder>(DIFF_CA
                 binding.apply {
                     acivThumbnail.loadImage(eventPlayground.thumbnailUrl)
                     actvTitle.text = eventPlayground.title
-                    actvDate.text = getString(R.string.tanggal_24_01_2024, eventPlayground.date)
-                    actvTime.text = getString(R.string.jam_event, eventPlayground.time)
+                    actvDate.text = getString(R.string.tanggal_awal, eventPlayground.dateStart)
+                    actvTime.text = getString(R.string.tanggal_berakhir, eventPlayground.dateFinish)
                 }
             }
         }

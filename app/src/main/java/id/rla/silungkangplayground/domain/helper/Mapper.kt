@@ -1,14 +1,19 @@
 package id.rla.silungkangplayground.domain.helper
 
+import id.rla.silungkangplayground.BuildConfig
 import id.rla.silungkangplayground.data.helper.QrCodeGenerator
+import id.rla.silungkangplayground.data.local.EventEntity
 import id.rla.silungkangplayground.data.remote.dto.CardMemberDto
+import id.rla.silungkangplayground.data.remote.dto.EventDto
 import id.rla.silungkangplayground.data.remote.dto.MemberAccountDto
 import id.rla.silungkangplayground.data.remote.dto.OfferedVoucherDto
 import id.rla.silungkangplayground.data.remote.dto.VoucherHistoryDto
 import id.rla.silungkangplayground.data.remote.dto.VoucherInfoDto
 import id.rla.silungkangplayground.domain.common.Constants.PATTERN_DATE_DOMAIN
 import id.rla.silungkangplayground.domain.common.Constants.PATTERN_DATE_RESPONSE
+import id.rla.silungkangplayground.domain.common.Event
 import id.rla.silungkangplayground.domain.model.CardMember
+import id.rla.silungkangplayground.domain.model.EventPlayground
 import id.rla.silungkangplayground.domain.model.MemberAccount
 import id.rla.silungkangplayground.domain.model.MemberHistoryItem
 import id.rla.silungkangplayground.domain.model.MemberVoucherInfo
@@ -184,6 +189,55 @@ object Mapper {
                     type = voucherType
                 )
             }
+        }
+    }
+
+    suspend fun mapEventDtoToEventEntity(
+        listEventDto: List<EventDto>,
+    ):List<EventEntity>{
+        return withContext(Dispatchers.Default){
+            if (listEventDto.isEmpty()) return@withContext emptyList()
+
+            val formatDateResponse = SimpleDateFormat(PATTERN_DATE_RESPONSE, Locale.getDefault())
+            val formatDateDomain = SimpleDateFormat(PATTERN_DATE_DOMAIN, Locale.getDefault())
+            listEventDto.map {
+                ensureActive()
+
+
+                var date = formatDateResponse.parse(it.eventStart ?: "2024-01-1") ?: getCurrentDate()
+                val dateStart = formatDateDomain.format(date)
+
+                date = formatDateResponse.parse(it.eventEnd ?: "2024-01-1") ?: getCurrentDate()
+                val dateFinish = formatDateDomain.format(date)
+
+                EventEntity(
+                    id = it.eventId ?: return@withContext emptyList(),
+                    eventName = it.eventName ?: "",
+                    eventBanner = it.eventBanner ?: "view/assets/images/Tahfidz.png",
+                    eventStart = dateStart,
+                    eventEnd = dateFinish,
+                    eventLink = it.eventLink ?: "https://silungkangplayground.id/"
+                )
+            }
+        }
+    }
+
+    suspend fun mapEventEntityToDomain(
+        eventEntity: EventEntity
+    ):EventPlayground{
+        return withContext(Dispatchers.Default){
+            ensureActive()
+
+            eventEntity.run{
+                EventPlayground(
+                    id = id,
+                    dateStart = eventStart,
+                    dateFinish = eventEnd,
+                    title = eventName,
+                    thumbnailUrl = if (eventBanner.isNotBlank()) "${BuildConfig.BASE_URL}$eventBanner" else "https://silungkangplayground.id/"
+                )
+            }
+
         }
     }
 

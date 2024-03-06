@@ -9,6 +9,6 @@ class CheckIsUserHasAlreadyLoggedInInteractor @Inject constructor(
     private val repository: Repository
 ):CheckIsUserHasAlreadyLoggedInUseCase {
     override fun invoke(): Flow<Boolean> {
-        return repository.isUserHasAlreadyLoggin()
+        return repository.isUserHasAlreadyLoggedIn()
     }
 }

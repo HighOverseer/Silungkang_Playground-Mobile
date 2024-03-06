@@ -17,6 +17,7 @@ import id.rla.silungkangplayground.domain.usecase.interactor.GetCurrentMemberIdI
 import id.rla.silungkangplayground.domain.usecase.GetCurrentMemberIdUseCase
 import id.rla.silungkangplayground.domain.usecase.interactor.GetDetailMemberVoucherInteractor
 import id.rla.silungkangplayground.domain.usecase.GetDetailMemberVoucherUseCase
+import id.rla.silungkangplayground.domain.usecase.GetEventPlaygroundInPagingUseCase
 import id.rla.silungkangplayground.domain.usecase.interactor.GetMemberHistoryInteractor
 import id.rla.silungkangplayground.domain.usecase.GetMemberHistoryUseCase
 import id.rla.silungkangplayground.domain.usecase.GetOfferedVouchersUseCase
@@ -27,6 +28,7 @@ import id.rla.silungkangplayground.domain.usecase.LogoutUseCase
 import id.rla.silungkangplayground.domain.usecase.SendFeedbackUseCase
 import id.rla.silungkangplayground.domain.usecase.interactor.CheckIsUserHasAlreadyLoggedInInteractor
 import id.rla.silungkangplayground.domain.usecase.interactor.ExchangePointInteractor
+import id.rla.silungkangplayground.domain.usecase.interactor.GetEventPlaygroundInPagingInteractor
 import id.rla.silungkangplayground.domain.usecase.interactor.GetOfferedVoucherInteractor
 import id.rla.silungkangplayground.domain.usecase.interactor.SendFeedbackInteractor
 
@@ -81,4 +83,8 @@ abstract class AppModule {
     @Binds
     @ViewModelScoped
     abstract fun provideSendFeedbackUseCase(sendFeedbackInteractor: SendFeedbackInteractor):SendFeedbackUseCase
+
+    @Binds
+    @ViewModelScoped
+    abstract fun provideGetEventPlaygroundInPagingUseCase(getEventPlaygroundInPagingInteractor: GetEventPlaygroundInPagingInteractor):GetEventPlaygroundInPagingUseCase
 }
